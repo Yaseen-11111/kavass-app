@@ -3,7 +3,7 @@ import { portfolioData } from '../data/content';
 import { PortfolioItem } from '../data/content';
 
 // 1. Import the image
-import myPhoto from '@/assests/projects'; // Change path to match your folder structure
+import myPhoto from '@/assests/projects/'; // Change path to match your folder structure
 
 export default function Hero(name:string) {
     return (
