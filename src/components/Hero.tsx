@@ -52,7 +52,7 @@ export const Hero = () => (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                     {techStack.map((tech, index) => (
                         <div key={index}
-                             className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4 hover:scale-105 transition-transform">
+                             className="p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4 hover:scale-105 transition-transform">
                             <CheckCircle className="text-blue-500" size={24}/>
                             <span className="font-semibold text-lg text-gray-800 dark:text-gray-200">{tech}</span>
                         </div>
