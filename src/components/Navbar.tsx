@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, currentTheme }) => 
                 KAVASS
             </Link>
             <div className="hidden md:flex gap-8 text-sm font-medium">
-                <Link to="/hero" className="hover:text-blue-500 transition-colors">Home</Link>
+                <Link to="/home" className="hover:text-blue-500 transition-colors">Home</Link>
                 <Link to="/about" className="hover:text-blue-500 transition-colors">Questions?</Link>
                 <Link to="/portfolio" className="hover:text-blue-500 transition-colors">Showcase</Link>
                 <Link to="/pricing" className="hover:text-blue-500 transition-colors">Pricing</Link>
