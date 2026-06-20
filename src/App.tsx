@@ -18,8 +18,8 @@ export default function App() {
                 <Navbar toggleTheme={setTheme} currentTheme={colorTheme} />
 
                 <main className="flex-grow">
-                    <Routes>
-                        <Route path="/" element={<Hero />} />
+                    <Routes >
+                        <Route path="/hero" element={<Hero />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/portfolio" element={<Portfolio />} />
                         <Route path="/pricing" element={<Pricing />} />
