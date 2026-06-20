@@ -106,7 +106,7 @@ export const Hero = () => (
             ].map((feature) => (
                 <div key={feature.title} className="p-6  rounded-2xl">
                     <h3 className="font-bold text-lg mb-2 text-text">{feature.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-text/70">{feature.desc}</p>
+                    <p className="text-text/70">{feature.desc}</p>
                 </div>
             ))}
         </div>
