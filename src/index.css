@@ -16,6 +16,10 @@
     --color-background: #0f172a;
     --color-text: #f9fafb;
     --nav-border: #1f2937;
+
+
+    --nav-bg: #273760;
+    --nav-text: #ffffff;
 }
 
 @layer base {
