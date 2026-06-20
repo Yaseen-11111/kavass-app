@@ -5,7 +5,6 @@ export interface PortfolioItem {
     client: string;
     category: string;
     imageUrl: string;
-    liveUrl: string;
     previewUrl: string; // Added to match your data
 }
 
