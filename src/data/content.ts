@@ -91,8 +91,8 @@ export const portfolioData: PortfolioItem[] = [
         title: "Velocity Media",
         client: "Velocity Media, Aldershot",
         category: "Retail",
-        imageUrl: "./assets/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "./assets/previews/SocialAgency.html"
+        imageUrl: "Yaseen-11111/kavass-app/src/assets/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "Yaseen-11111/kavass-app/src/assets/previews/SocialAgency.html"
     }
 ];
 
