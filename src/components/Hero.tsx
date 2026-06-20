@@ -5,19 +5,25 @@ import {CheckCircle} from "lucide-react";
 
 export const Hero = () => (
     <section className="pt-40 pb-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
-        <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            Bespoke web design.<br/>Without the BS.
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
-            We build high-performance, custom websites for brands that refuse to blend in.
-            No templates, no bloated agency timelines.
-        </p>
+        // Added 'relative' to constrain the absolute blur blob
+        <div className="relative pt-40 pb-20 px-6 text-center transition-colors">
+            {/* Background Blur */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/contact"
-                  className="bg-primary text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-blue-700 transition-transform hover:-translate-y-1">
+            {/* Use text-text instead of text-gray-900 */}
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-text">
+                Bespoke web design.<br/>Without the BS.
+            </h1>
+            {/* Using opacity (text-text/70) effectively replaces the gray-600 look */}
+            <p className="text-xl text-text/70 max-w-2xl mx-auto mb-10">
+                We build high-performance, custom websites for brands that refuse to blend in.
+                No templates, no bloated agency timelines.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link to="/contact"
+
+                      className="bg-primary text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-blue-700 transition-transform hover:-translate-y-1">
                 Request a Free Demo
             </Link>
             <Link to="/portfolio"
@@ -28,6 +34,7 @@ export const Hero = () => (
                className="text-gray-500 font-medium hover:text-primary transition-colors flex items-center gap-2">
                 See how it works<span>↓</span>
             </a>
+            </div>
         </div>
 
         <div className="flex justify-center gap-12 mt-10 mb-16 text-center">
@@ -45,7 +52,7 @@ export const Hero = () => (
             </div>
         </div>
 
-        <section className="py-20 px-6 transition-colors ">
+        <div className="py-20 px-6 transition-colors ">
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">Our Engineering
                     Arsenal</h2>
@@ -59,7 +66,7 @@ export const Hero = () => (
                     ))}
                 </div>
             </div>
-        </section>
+        </div>
         <div id="how-it-works" className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto py-20">
             {[
                 {step: "01", title: "Strategy", desc: "We define your brand goals and user journey."},
