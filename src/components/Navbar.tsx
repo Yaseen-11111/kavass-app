@@ -10,14 +10,14 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, currentTheme }) => (
     <nav className="fixed w-full z-50 top-0 bg-nav border-navBorder transition-colors duration-300">
         <div className="text-navText max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <Link to="/home" className="text-2xl font-black bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
+            <Link to="/kavass-app/home" className="text-2xl font-black bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
                 KAVASS
             </Link>
             <div className="hidden md:flex gap-8 text-sm font-medium">
-                <Link to="/home" className="hover:text-blue-500 transition-colors">Home</Link>
-                <Link to="/about" className="hover:text-blue-500 transition-colors">Questions?</Link>
-                <Link to="/portfolio" className="hover:text-blue-500 transition-colors">Showcase</Link>
-                <Link to="/pricing" className="hover:text-blue-500 transition-colors">Pricing</Link>
+                <Link to="/kavass-app/home" className="hover:text-blue-500 transition-colors">Home</Link>
+                <Link to="/kavass-app/about" className="hover:text-blue-500 transition-colors">Questions?</Link>
+                <Link to="/kavass-app/portfolio" className="hover:text-blue-500 transition-colors">Showcase</Link>
+                <Link to="/kavass-app/pricing" className="hover:text-blue-500 transition-colors">Pricing</Link>
             </div>
             <div className="flex items-center gap-4">
                 <button onClick={() => toggleTheme(currentTheme)} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">

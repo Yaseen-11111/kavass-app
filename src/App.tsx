@@ -19,11 +19,11 @@ export default function App() {
 
                 <main className="flex-grow">
                     <Routes >
-                        <Route path="/home" element={<Hero />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/portfolio" element={<Portfolio />} />
-                        <Route path="/pricing" element={<Pricing />} />
-                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/kavass-app/home" element={<Hero />} />
+                        <Route path="/kavass-app/about" element={<About />} />
+                        <Route path="/kavass-app//portfolio" element={<Portfolio />} />
+                        <Route path="/kavass-app//pricing" element={<Pricing />} />
+                        <Route path="/kavass-app//contact" element={<Contact />} />
                     </Routes>
                 </main>
 
