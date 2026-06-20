@@ -13,7 +13,7 @@ export default function App() {
     const [colorTheme, setTheme] = useDarkMode();
 
     return (
-        <Router basename="/kavass-app">
+        <Router basename="/kavass-app/">
             <div className="min-h-screen flex flex-col bg-background transition-colors duration-300 font-sans pt-20">
                 <Navbar toggleTheme={setTheme} currentTheme={colorTheme} />
 
