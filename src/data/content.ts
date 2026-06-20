@@ -51,7 +51,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Luxe Polished Nails",
         client: "Luxe Polished Nails, Fleet",
         category: "Independent Nail Bar",
-        imageUrl: "/assets/projects/NailBar.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "NailBar.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "public/assets/previews/NailBar.html"
     },
     {
@@ -59,7 +59,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Razor & Blade",
         client: "Razor & Blade, Aldershot",
         category: "Independent Barber Shop",
-        imageUrl: "/assets/projects/Barber.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "Barber.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "public/assets/previews/BarberSite.html"
     },
     {
@@ -67,7 +67,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Apex Builders",
         client: "Apex Builders, Camberley",
         category: "Construction Company",
-        imageUrl: "/assets/projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "Builder.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "public/assets/previews/BuilderSite.html"
     },
     {
@@ -75,7 +75,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Saffron Indian",
         client: "Saffron Indian, Farnborough",
         category: "Restaurant",
-        imageUrl: "/assets/projects/Indian.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "Indian.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "public/assets/previews/SaffronKitchen.html"
     },
     {
@@ -83,7 +83,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Vanguard Legal",
         client: "Vanguard Legal, Guildford",
         category: "Legal Firm",
-        imageUrl: "/assets/projects/Legal.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "Legal.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "public/assets/previews/LawFirm.html"
     },
     {
@@ -91,7 +91,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Velocity Media",
         client: "Velocity Media, Aldershot",
         category: "Retail",
-        imageUrl: "/assets/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "Social.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "public/assets/previews/SocialAgency.html"
     }
 ];

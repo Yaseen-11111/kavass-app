@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { portfolioData } from '../data/content';
 import { PortfolioItem } from '../data/content';
 
+
 export const Portfolio = () => {
     const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
