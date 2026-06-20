@@ -170,23 +170,23 @@ export const About = () => {
                     Don't just take my word for it.
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="p-8 bg-gray-50 dark:bg-gray-800/30 rounded-3xl border border-gray-100 dark:border-gray-800">
+                    <div className="p-8 bg-gray-50 dark:bg-gray-800/30 rounded-3xl">
                         <div className="flex gap-1 mb-4 text-yellow-400">
                             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                         </div>
-                        <p className="text-gray-700 dark:text-gray-300 mb-6 italic leading-relaxed">
+                        <p className="text-text mb-6 italic leading-relaxed">
                             "Kavass didn't just redesign our site; they rebuilt our entire digital acquisition funnel. Our lead volume doubled within the first month of launch just from the speed improvements alone."
                         </p>
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold">JD</div>
                             <div>
-                                <p className="font-bold text-sm text-gray-900 dark:text-white">James D.</p>
-                                <p className="text-xs text-gray-500">SaaS Founder</p>
+                                <p className="font-bold text-sm text-text">James D.</p>
+                                <p className="text-xs text-text">SaaS Founder</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-8 bg-gray-50 dark:bg-gray-800/30 rounded-3xl border border-gray-100 dark:border-gray-800">
+                    <div className="p-8 bg-gray-50 dark:bg-gray-800/30 rounded-3xl">
                         <div className="flex gap-1 mb-4 text-yellow-400">
                             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                         </div>
@@ -196,13 +196,13 @@ export const About = () => {
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold">SL</div>
                             <div>
-                                <p className="font-bold text-sm text-gray-900 dark:text-white">Sarah L.</p>
+                                <p className="font-bold text-sm text-text">Sarah L.</p>
                                 <p className="text-xs text-gray-500">CMO, TechLogistics</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-8 bg-gray-50 dark:bg-gray-800/30 rounded-3xl border border-gray-100 dark:border-gray-800">
+                    <div className="p-8 bg-gray-50 dark:bg-gray-800/30 rounded-3xl">
                         <div className="flex gap-1 mb-4 text-yellow-400">
                             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                         </div>
@@ -212,8 +212,8 @@ export const About = () => {
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold">MR</div>
                             <div>
-                                <p className="font-bold text-sm text-gray-900 dark:text-white">Marcus R.</p>
-                                <p className="text-xs text-gray-500">CEO, FinScale</p>
+                                <p className="font-bold text-sm text-text">Marcus R.</p>
+                                <p className="text-xs text-text">CEO, FinScale</p>
                             </div>
                         </div>
                     </div>
@@ -235,19 +235,19 @@ export const About = () => {
                     {faqs.map((faq, index:number) => (
                         <div
                             key={index}
-                            className="bg-white dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800 rounded-2xl   transition-all duration-200"
+                            className="bg-white dark:bg-gray-800/50 rounded-2xl   transition-all duration-200"
                         >
                             <button
                                 onClick={() => toggleFaq(index)}
                                 className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none "
                             >
-                                <span className="font-bold text-gray-900 dark:text-white pr-4 ">
+                                <span className="font-bold text-text pr-4 ">
                                     {faq.question}
                                 </span>
                                 {openFaq === index ? (
                                     <Minus className="w-5 h-5 text-blue-600 flex-shrink-0" />
                                 ) : (
-                                    <Plus className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                    <Plus className="w-5 h-5 text-black-400 flex-shrink-0" />
                                 )}
                             </button>
 
@@ -256,7 +256,7 @@ export const About = () => {
                                     openFaq === index ? "max-h-48 pb-6 opacity-100" : "max-h-0 opacity-0"
                                 }`}
                             >
-                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed ">
+                                <p className="text-text/70 leading-relaxed ">
                                     {faq.answer}
                                 </p>
                             </div>
