@@ -69,14 +69,14 @@ export const About = () => {
     ];
 
     return (
-        <section className="py-20 px-6 max-w-6xl mx-auto text-gray-800 dark:text-gray-200">
+        <section className="py-20 px-6 max-w-6xl mx-auto text-text">
 
             {/* Main Header */}
             <div className="mb-16 max-w-3xl">
-                <h1 className="text-5xl font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight">
+                <h1 className="text-5xl font-extrabold mb-6 text-text tracking-tight">
                     Why Kavass exists.
                 </h1>
-                <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
+                <p className="text-xl leading-relaxed text-text">
                     The agency world is broken. Founders are forced to choose between
                     overpriced, slow-moving agencies or rigid "drag-and-drop" builders
                     that leave their brand looking exactly like everyone else's.
