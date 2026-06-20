@@ -226,7 +226,7 @@ export const About = () => {
                     <h2 className="text-3xl font-bold text-text mb-4">
                         Frequently Asked Questions
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-text">
                         Everything you need to know about how we work.
                     </p>
                 </div>
