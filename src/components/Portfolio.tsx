@@ -56,7 +56,7 @@ export const Portfolio = () => {
                                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
                             </div>
                             <div className="flex-1 bg-white mx-4 rounded-md text-xs text-gray-500 py-1 text-center font-mono">
-                                {selectedProject.liveUrl || "localhost:3000"}
+                                {selectedProject.previewUrl || "localhost:3000"}
                             </div>
                         </div>
 
