@@ -148,16 +148,16 @@ export const About = () => {
 
                     <div className="p-8 bg-white dark:bg-gray-800/50 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800">
                         <Target className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-6" />
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Conversion-First</h3>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <h3 className="text-xl font-bold text-text mb-3">Conversion-First</h3>
+                        <p className="text-text leading-relaxed">
                             Every pixel is engineered with intent, guiding your users naturally toward the actions that drive revenue.
                         </p>
                     </div>
 
                     <div className="p-8 bg-white dark:bg-gray-800/50 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800">
                         <Layers className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-6" />
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Scalable Systems</h3>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <h3 className="text-xl font-bold text-text mb-3">Scalable Systems</h3>
+                        <p className="text-text leading-relaxed">
                             Modular architecture built on modern tech stacks, ensuring your platform evolves seamlessly as you grow.
                         </p>
                     </div>
@@ -166,10 +166,10 @@ export const About = () => {
 
             {/* Reviews / Testimonials */}
             <div className="mb-24">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-10">
+                <h2 className="text-3xl font-bold text-text mb-10">
                     Don't just take my word for it.
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-text">
                     <div className="p-8 bg-gray-50 dark:bg-gray-800/30 rounded-3xl">
                         <div className="flex gap-1 mb-4 text-yellow-400">
                             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
@@ -190,14 +190,14 @@ export const About = () => {
                         <div className="flex gap-1 mb-4 text-yellow-400">
                             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                         </div>
-                        <p className="text-gray-700 dark:text-gray-300 mb-6 italic leading-relaxed">
+                        <p className="text-text mb-6 italic leading-relaxed">
                             "Finally, a dev partner who actually understands business logic. They ditched the slow page builders and gave us a custom stack that our team can easily manage. Highly recommend."
                         </p>
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-700 dark:text-blue-300 font-bold">SL</div>
                             <div>
                                 <p className="font-bold text-sm text-text">Sarah L.</p>
-                                <p className="text-xs text-gray-500">CMO, TechLogistics</p>
+                                <p className="text-xs text-text">CMO, TechLogistics</p>
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@ export const About = () => {
                         <div className="flex gap-1 mb-4 text-yellow-400">
                             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                         </div>
-                        <p className="text-gray-700 dark:text-gray-300 mb-6 italic leading-relaxed">
+                        <p className="text-text mb-6 italic leading-relaxed">
                             "We had outgrown our old template site and it was hurting our brand credibility. Kavass delivered a premium, incredibly fast website that immediately positioned us as enterprise-ready."
                         </p>
                         <div className="flex items-center gap-3">
@@ -223,7 +223,7 @@ export const About = () => {
             {/* FAQ Section */}
             <div className="mb-24 max-w-3xl mx-auto">
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <h2 className="text-3xl font-bold text-text mb-4">
                         Frequently Asked Questions
                     </h2>
                     <p className="text-gray-600 dark:text-gray-400">
