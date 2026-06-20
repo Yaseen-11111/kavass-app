@@ -11,9 +11,9 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, currentTheme }) => 
     /* 1. bg-nav-bg sets the background.
            2. border-b is required to make the border visible.
            3. border-nav-border sets the color. */
-    <nav className="fixed w-full z-50 top-0 bg-nav-bg border-nav-border transition-colors duration-300">
+    <nav className="fixed w-full z-50 top-0 bg-background border-nav-border transition-colors duration-300">
         {/* Changed text-navText to text-nav-text */}
-        <div className="text-navText bg-background max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="text-navText max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <Link to="/" className="text-2xl font-black bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
                 KAVASS
             </Link>
