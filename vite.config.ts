@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
 export default defineConfig({
-    base: '/kavass-app/',
+    base: '/home',
     plugins: [
         react(),
         tailwindcss(), // This handles everything, including autoprefixer
