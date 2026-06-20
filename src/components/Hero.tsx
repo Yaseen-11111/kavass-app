@@ -45,7 +45,7 @@ export const Hero = () => (
             </div>
         </div>
 
-        <section className="py-20 px-6 bg-white dark:bg-gray-900 transition-colors ">
+        <section className="py-20 px-6 transition-colors ">
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">Our Engineering
                     Arsenal</h2>

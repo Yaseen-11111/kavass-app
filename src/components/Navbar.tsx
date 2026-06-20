@@ -23,7 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, currentTheme }) => 
                 <button onClick={() => toggleTheme(currentTheme)} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
                     {currentTheme === 'light' ? <Sun size={20} className="text-white" /> : <Moon size={20} className="text-gray-900" />}
                 </button>
-                <Link to="/kavass-app/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-semibold transition-colors">
+                <Link to="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-semibold transition-colors">
                     Let's Talk
                 </Link>
             </div>
