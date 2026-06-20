@@ -23,7 +23,7 @@ export interface AddonData { // Renamed to match your usage
     id: string;
     name: string;
     description: string;
-    price: string;
+    price: number;
 }
 
 

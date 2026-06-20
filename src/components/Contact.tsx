@@ -13,7 +13,7 @@ export const Contact = () => (
             Request your free bespoke demo today. No corporate contact forms. Reach out where you're comfortable.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a href={contactInfo.whatsapp.Icons} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-transform hover:-translate-y-1">
+            <a href={contactInfo.whatsapp} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-transform hover:-translate-y-1">
                 <MessageCircle size={24} /> WhatsApp Me
             </a>
             <a href={contactInfo.instagram} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-transform hover:-translate-y-1">
