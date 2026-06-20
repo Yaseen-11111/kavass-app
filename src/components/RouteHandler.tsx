@@ -1,6 +1,10 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+
+interface RouteHandlerProps {
+    children?: React.ReactNode;
+}
 export const RouteHandler = () => {
     const navigate = useNavigate();
     const location = useLocation();
