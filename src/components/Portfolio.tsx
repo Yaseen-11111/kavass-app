@@ -7,7 +7,7 @@ export const Portfolio = () => {
 
     return (
         <section className="py-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
-            <h2 className="text-4xl font-bold mb-12">Recent Masterpieces</h2>
+            <h2 className="text-4xl text-text font-bold mb-12">Recent Masterpieces</h2>
 
             {/* Project Grid */}
             <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 mb-16">
