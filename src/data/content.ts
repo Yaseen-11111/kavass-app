@@ -52,7 +52,7 @@ export const portfolioData: PortfolioItem[] = [
         client: "Luxe Polished Nails, Fleet",
         category: "Independent Nail Bar",
         imageUrl: "NailBar.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "public/assets/previews/NailBar.html"
+        previewUrl: "./assets/previews/NailBar.html"
     },
     {
         id: "p2",
@@ -60,39 +60,39 @@ export const portfolioData: PortfolioItem[] = [
         client: "Razor & Blade, Aldershot",
         category: "Independent Barber Shop",
         imageUrl: "Barber.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "public/assets/previews/BarberSite.html"
+        previewUrl: "./assets/previews/BarberSite.html"
     },
     {
         id: "p3",
         title: "Apex Builders",
         client: "Apex Builders, Camberley",
         category: "Construction Company",
-        imageUrl: "Builder.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "public/assets/previews/BuilderSite.html"
+        imageUrl: "./assets/projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "./assets/previews/BuilderSite.html"
     },
     {
         id: "p4",
         title: "Saffron Indian",
         client: "Saffron Indian, Farnborough",
         category: "Restaurant",
-        imageUrl: "Indian.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "public/assets/previews/SaffronKitchen.html"
+        imageUrl: "./assets/projects/Indian.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "./assets/previews/SaffronKitchen.html"
     },
     {
         id: "p5",
         title: "Vanguard Legal",
         client: "Vanguard Legal, Guildford",
         category: "Legal Firm",
-        imageUrl: "Legal.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "public/assets/previews/LawFirm.html"
+        imageUrl: "./assets/projects/Legal.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "./assets/previews/LawFirm.html"
     },
     {
         id: "p6",
         title: "Velocity Media",
         client: "Velocity Media, Aldershot",
         category: "Retail",
-        imageUrl: "Social.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "public/assets/previews/SocialAgency.html"
+        imageUrl: "./assets/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "./assets/previews/SocialAgency.html"
     }
 ];
 
