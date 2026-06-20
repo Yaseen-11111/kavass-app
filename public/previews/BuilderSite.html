@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Build Group | Professional Construction</title>
+    <style>
+        :root { --primary: #111625; --accent: #E67E22; --bg: #F8F9FA; --text: #2C3E50; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* Navigation */
+        nav { background: var(--white); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--primary); }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links button { background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--text); cursor: pointer; padding: 5px 10px; transition: 0.3s; }
+        .nav-links button:hover, .nav-links button.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
+
+        /* Hero Section */
+        .hero { height: 60vh; background: linear-gradient(rgba(17,22,37,0.7), rgba(17,22,37,0.7)), url('https://picsum.photos/id/1074/1600/900'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
+
+        /* SPA Pages */
+        .page { display: none; padding: 60px 5%; min-height: 80vh; animation: fadeIn 0.5s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Grid Layouts */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 30px; }
+        .card { background: var(--white); border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); overflow: hidden; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 20px; }
+
+        /* Typography */
+        h2 { font-size: 2.2rem; margin-bottom: 20px; color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; }
+        .btn { padding: 12px 25px; background: var(--accent); color: var(--white); border: none; font-weight: bold; cursor: pointer; border-radius: 4px; display: inline-block; margin-top: 20px; text-decoration: none; }
+
+        /* Forms */
+        input, textarea, select { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+
+        footer { background: var(--primary); color: #ddd; text-align: center; padding: 40px; }
+
+        @media (max-width: 768px) {
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">APEX<span>BUILD</span></div>
+    <div class="nav-links">
+        <button onclick="navigate('home')" class="nav-btn active" data-target="home">Home</button>
+        <button onclick="navigate('about')" class="nav-btn" data-target="about">About & Team</button>
+        <button onclick="navigate('projects')" class="nav-btn" data-target="projects">Projects</button>
+        <button onclick="navigate('contact')" class="nav-btn" data-target="contact">Contact</button>
+    </div>
+</nav>
+
+<!-- HOME PAGE -->
+<main id="home" class="page active">
+    <div class="hero">
+        <h1>Engineered For Permanence</h1>
+        <p>High-fidelity commercial infrastructure and residential custom builds.</p>
+        <button class="btn" onclick="navigate('projects')">View Our Work</button>
+    </div>
+    <div style="padding-top: 40px;">
+        <h2>Why Apex Build?</h2>
+        <div class="grid">
+            <div class="card" style="padding: 20px;">
+                <h3>Safety First</h3>
+                <p>15 years of zero-incident site operations. We prioritize human capital above all else in every build.</p>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <h3>Precision Engineering</h3>
+                <p>Every beam, pour, and joint is calculated to exceed UK structural building standards by 20%.</p>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <h3>Sustainable Design</h3>
+                <p>Integrating green material lifecycles into modern architecture without compromising structural integrity.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ABOUT PAGE -->
+<main id="about" class="page">
+    <h2>Leadership & Vision</h2>
+    <p>Founded in 2005 near Farnborough, Apex has grown into a premier construction group. We operate on the principle that a building should serve the next three generations.</p>
+
+    <div class="grid" style="margin-top: 40px;">
+        <div class="card">
+            <img src="https://picsum.photos/id/64/400/250" alt="Marcus">
+            <div class="card-content">
+                <h3>Marcus Thorne</h3>
+                <p><strong>Chief Site Engineer</strong><br>20+ years of high-volume infrastructure experience.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/id/177/400/250" alt="Sarah">
+            <div class="card-content">
+                <h3>Sarah Jenkins, RIBA</h3>
+                <p><strong>Lead Architect</strong><br>Specialist in commercial aesthetic sustainability.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/id/1005/400/250" alt="David">
+            <div class="card-content">
+                <h3>David Ross</h3>
+                <p><strong>Operations Director</strong><br>Ensuring 100% project delivery within tight margins.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- PROJECTS PAGE -->
+<main id="projects" class="page">
+    <h2>Recent Portfolio</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://picsum.photos/id/201/400/250" alt="Project">
+            <div class="card-content">
+                <h3>The Farnborough Aviator Hub</h3>
+                <p>Commercial workspace featuring state-of-the-art structural steel assembly.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/id/180/400/250" alt="Project">
+            <div class="card-content">
+                <h3>Camberley Transit Link</h3>
+                <p>Infrastructure project focusing on civil site preparation and concrete piling.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/id/163/400/250" alt="Project">
+            <div class="card-content">
+                <h3>Guildford Heights Residences</h3>
+                <p>High-end residential builds focusing on advanced thermal efficiency.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/id/152/400/250" alt="Project">
+            <div class="card-content">
+                <h3>Surrey Tech Park</h3>
+                <p>Master planning and construction of five industrial units.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- CONTACT PAGE -->
+<main id="contact" class="page">
+    <h2>Let's Build</h2>
+    <div class="grid">
+        <div class="card" style="padding: 30px;">
+            <h3>Get In Touch</h3>
+            <p>Unit 14, Riverside Business Park<br>Camberley, Surrey, GU15 3YL</p>
+            <p><strong>Tel:</strong> 01276 555 0192<br><strong>Email:</strong> estimating@apexbuild.co.uk</p>
+            <br>
+            <p><em>Apex Build Group services the entirety of Surrey, Hampshire, and Berkshire within a 20-mile radius of Farnborough.</em></p>
+        </div>
+        <div class="card" style="padding: 30px;">
+            <form onsubmit="event.preventDefault(); alert('Proposal brief submitted.');">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Project Site Location" required>
+                <textarea rows="4" placeholder="Brief Description of Scope" required></textarea>
+                <button type="submit" class="btn" style="width: 100%;">Submit Proposal</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Apex Build Group. Created by Yaseen Rashid.</p>
+</footer>
+
+<script>
+    function navigate(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelector(`[data-target="${pageId}"]`).classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saffron Kitchen | Authentic Indian Gastronomy</title>
+    <style>
+        :root {
+            --primary: #2C1810;
+            --accent: #D35400;
+            --gold: #C5A059;
+            --bg: #FDFBF7;
+            --text: #333;
+            --white: #fff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Playfair Display', Georgia, serif; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* Navigation */
+        nav { background: var(--primary); padding: 20px 0; color: #fff; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { font-size: 1.6rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-btn { background: none; border: none; color: #EDBB99; font-size: 1rem; cursor: pointer; transition: 0.3s; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-btn:hover, .nav-btn.active { color: #fff; border-bottom: 1px solid var(--gold); }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 15px; }
+        }
+
+        /* Pages */
+        .page { display: none; max-width: 900px; margin: 0 auto; padding: 40px 20px; animation: fadeIn 0.5s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h1, h2 { color: var(--primary); text-align: center; margin-bottom: 20px; }
+        .section-title { color: var(--accent); border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1.4rem; }
+
+        /* Menu Grid */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; }
+        .item { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .item-details h4 { color: var(--primary); margin-bottom: 2px; }
+        .item-details p { font-family: sans-serif; font-size: 0.85rem; color: #666; max-width: 300px; }
+        .price { font-weight: bold; color: var(--primary); }
+
+        /* Forms */
+        .form-card { background: #fff; padding: 30px; border: 1px solid #ddd; max-width: 500px; margin: 0 auto; }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; }
+        .btn { width: 100%; padding: 15px; background: var(--primary); color: #fff; border: none; cursor: pointer; text-transform: uppercase; }
+        .btn:hover { background: var(--accent); }
+
+        footer { text-align: center; padding: 40px; color: #888; font-family: sans-serif; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Saffron<span>Kitchen</span></div>
+        <div class="nav-links">
+            <button onclick="navigate('home')" class="nav-btn active" data-target="home">Home</button>
+            <button onclick="navigate('menu')" class="nav-btn" data-target="menu">Menu</button>
+            <button onclick="navigate('reserve')" class="nav-btn" data-target="reserve">Reservations</button>
+        </div>
+    </div>
+</nav>
+
+
+
+<main id="home" class="page active">
+    <h1>Authentic Indian Heritage</h1>
+    <p style="text-align: center; font-family: sans-serif; max-width: 600px; margin: 20px auto;">Located in the heart of Farnborough. We bring the traditional clay oven tandoor experience to life, utilizing spices sourced directly from the spice markets of Delhi.</p>
+    <div style="text-align: center; margin-top: 30px;">
+        <button class="btn" style="width: auto; padding: 15px 40px;" onclick="navigate('menu')">View Full Menu</button>
+    </div>
+    <img src="https://picsum.photos/id/292/1000/500" style="width: 100%; margin-top: 40px; border-radius: 8px;" alt="Spices">
+</main>
+
+<main id="menu" class="page">
+    <h2>Our Menu</h2>
+
+    <div class="section-title">Starters & Appetizers</div>
+    <div class="menu-grid">
+        <div class="item">
+            <div class="item-details"><h4>Onion Bhaji</h4><p>Crispy onion fritters spiced with turmeric and cumin.</p></div>
+            <span class="price">£5.50</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Vegetable Samosa</h4><p>Pastry parcel filled with spiced potatoes and peas.</p></div>
+            <span class="price">£5.95</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Chicken Tikka Starter</h4><p>Diced chicken marinated in yogurt and Kashmiri chilli.</p></div>
+            <span class="price">£6.95</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Lamb Seekh Kebab</h4><p>Minced lamb skewers infused with coriander and ginger.</p></div>
+            <span class="price">£7.50</span>
+        </div>
+    </div>
+
+    <div class="section-title">Tandoori Clay Specials</div>
+    <div class="menu-grid">
+        <div class="item">
+            <div class="item-details"><h4>Tandoori Chicken (Half)</h4><p>Spring chicken marinated in a blend of 12 spices.</p></div>
+            <span class="price">£12.95</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Mixed Grill Platter</h4><p>Selection of Chicken Tikka, Seekh Kebab, and Tandoori King Prawns.</p></div>
+            <span class="price">£18.50</span>
+        </div>
+    </div>
+
+    <div class="section-title">Chef's Signature Curries</div>
+    <div class="menu-grid">
+        <div class="item">
+            <div class="item-details"><h4>Chicken Tikka Masala</h4><p>The nation's favorite, in a creamy almond and tomato sauce.</p></div>
+            <span class="price">£13.50</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Lamb Rogan Josh</h4><p>Tender lamb slow-cooked with aromatic spices and a rich tomato base.</p></div>
+            <span class="price">£14.95</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Prawn Jalfrezi</h4><p>Spicy curry cooked with fresh green chillies and capsicum.</p></div>
+            <span class="price">£14.50</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Butter Chicken</h4><p>Pulled chicken cooked in a smooth, mild buttery gravy.</p></div>
+            <span class="price">£13.95</span>
+        </div>
+    </div>
+
+    <div class="section-title">Vegetarian Mainstays</div>
+    <div class="menu-grid">
+        <div class="item">
+            <div class="item-details"><h4>Saag Paneer</h4><p>Fresh spinach and Indian cottage cheese.</p></div>
+            <span class="price">£10.95</span>
+        </div>
+        <div class="item">
+            <div class="item-details"><h4>Daal Tadka</h4><p>Yellow lentils tempered with garlic and dry chillies.</p></div>
+            <span class="price">£9.50</span>
+        </div>
+    </div>
+
+    <div class="section-title">Rice & Breads</div>
+    <div class="menu-grid">
+        <div class="item"><div class="item-details"><h4>Plain Basmati Rice</h4></div><span class="price">£3.50</span></div>
+        <div class="item"><div class="item-details"><h4>Pilau Rice</h4></div><span class="price">£3.95</span></div>
+        <div class="item"><div class="item-details"><h4>Garlic Naan</h4></div><span class="price">£3.50</span></div>
+        <div class="item"><div class="item-details"><h4>Peshwari Naan</h4><p>Filled with nuts, raisins, and coconut.</p></div><span class="price">£3.95</span></div>
+    </div>
+</main>
+
+<main id="reserve" class="page">
+    <h2>Reserve A Table</h2>
+    <div class="form-card">
+        <form onsubmit="alert('Reservation request received. We will confirm shortly.'); return false;">
+            <input type="text" placeholder="Name" required>
+            <input type="tel" placeholder="Phone Number" required>
+            <input type="number" placeholder="Party Size" min="1" max="20" required>
+            <input type="date" required>
+            <input type="time" required>
+            <textarea placeholder="Special Requirements (e.g. Allergies)"></textarea>
+            <button type="submit" class="btn">Confirm Reservation</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Saffron Kitchen. Farnborough, UK.</p>
+</footer>
+
+<script>
+    function navigate(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelector(`[data-target="${pageId}"]`).classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
+</body>
+</html>

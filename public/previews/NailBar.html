@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Polished Lounge | Luxury Nail Bar</title>
+    <style>
+        :root { --primary: #2D2522; --accent: #C5A059; --bg: #FAF6F1; --text: #3A3532; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', sans-serif; }
+        body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+        /* Navigation - Vertical Sidebar */
+        aside { width: 260px; background: var(--primary); color: #fff; padding: 40px 20px; position: fixed; height: 100vh; display: flex; flex-direction: column; justify-content: space-between; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 50px; text-align: center; }
+        .logo span { color: var(--accent); font-weight: bold; }
+        .nav-links { display: flex; flex-direction: column; gap: 15px; }
+        .nav-links button { background: none; border: none; color: #ccc; font-size: 1.1rem; text-align: left; padding: 10px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links button:hover, .nav-links button.active { color: var(--accent); padding-left: 20px; border-left: 3px solid var(--accent); }
+
+        /* Main Content Area */
+        .content-wrapper { margin-left: 260px; width: calc(100% - 260px); display: flex; flex-direction: column; }
+        .page { display: none; padding: 60px 8%; flex-grow: 1; animation: fadeSlide 0.5s ease; }
+        .page.active { display: block; }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Mobile Adjustments */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; position: relative; padding: 20px; flex-direction: row; align-items: center; }
+            .logo { margin-bottom: 0; font-size: 1.2rem; }
+            .nav-links { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 5px; }
+            .nav-links button { font-size: 0.8rem; padding: 5px; }
+            .nav-links button:hover, .nav-links button.active { padding-left: 5px; border-left: none; border-bottom: 2px solid var(--accent); }
+            .content-wrapper { margin-left: 0; width: 100%; }
+            .page { padding: 30px 5%; }
+        }
+
+        h1 { font-size: 3rem; font-weight: 300; margin-bottom: 20px; color: var(--primary); }
+        h2 { font-size: 2rem; font-weight: 300; margin-bottom: 30px; color: var(--accent); }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .menu-category h3 { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 1.2rem; }
+        .menu-item { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: baseline; }
+        .menu-item-details p { font-size: 0.85rem; color: #777; margin-top: 5px; max-width: 250px; }
+        .price { font-weight: bold; color: var(--accent); }
+
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
+        .team-grid img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid var(--accent); }
+
+        .btn { padding: 15px 30px; background: var(--accent); color: #fff; border: none; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+        form { background: #fff; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        input, select { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; background: #fafafa; }
+
+        footer { padding: 20px; text-align: center; font-size: 0.8rem; color: #888; border-top: 1px solid #eaeaea; }
+    </style>
+</head>
+<body>
+
+<aside>
+    <div class="logo">LUXE<span>POLISHED</span></div>
+    <div class="nav-links">
+        <button onclick="navigate('home')" class="nav-btn active" data-target="home">Welcome</button>
+        <button onclick="navigate('menu')" class="nav-btn" data-target="menu">Treatment Menu</button>
+        <button onclick="navigate('artists')" class="nav-btn" data-target="artists">Our Artists</button>
+        <button onclick="navigate('book')" class="nav-btn" data-target="book">Book Visit</button>
+    </div>
+    <div style="font-size: 0.75rem; color: #666; text-align: center; display: none;"></div>
+</aside>
+
+<div class="content-wrapper">
+    <main id="home" class="page active">
+        <h1>Artistry At Your Fingertips.</h1>
+        <p style="font-size: 1.2rem; max-width: 600px; line-height: 1.8; color: #555;">Located in the heart of Fleet, Hampshire. We provide an oasis of calm and pristine pampering treatments designed for premium, long-lasting nail healthcare layouts using only non-toxic, cruelty-free formulas.</p>
+        <br>
+        <button class="btn" onclick="navigate('menu')">View Treatments</button>
+        <img src="https://picsum.photos/id/1025/800/400" style="width: 100%; margin-top: 40px; object-fit: cover; height: 300px;" alt="Salon Interior">
+    </main>
+
+    <main id="menu" class="page">
+        <h2>The Treatment Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-category">
+                <h3>Natural Nails</h3>
+                <div class="menu-item">
+                    <div class="menu-item-details"><strong>The Classic Manicure</strong><p>Shaping, cuticle care, massage, standard polish.</p></div>
+                    <span class="price">£28</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-details"><strong>BIAB Overlay (Builder Gel)</strong><p>Strengthening gel applied to natural nails.</p></div>
+                    <span class="price">£45</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-details"><strong>Luxury Spa Pedicure</strong><p>Exfoliation, mask, heated booties, massage.</p></div>
+                    <span class="price">£55</span>
+                </div>
+            </div>
+            <div class="menu-category">
+                <h3>Enhancements & Art</h3>
+                <div class="menu-item">
+                    <div class="menu-item-details"><strong>Apres Gel-X Extensions</strong><p>Premium soft-gel extensions, flawless shape.</p></div>
+                    <span class="price">£60</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-details"><strong>Acrylic Full Set</strong><p>Sculpted acrylics with custom length.</p></div>
+                    <span class="price">£50</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-details"><strong>Bespoke Nail Art (Tier 3)</strong><p>Complex hand-painted designs, gems, chrome.</p></div>
+                    <span class="price">+£20</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="artists" class="page">
+        <h2>Master Technicians</h2>
+        <div class="team-grid">
+            <div>
+                <img src="https://picsum.photos/id/64/200/200" alt="Chloe">
+                <h3>Chloe</h3>
+                <p style="color: var(--accent); font-size: 0.9rem;">Senior BIAB Specialist</p>
+            </div>
+            <div>
+                <img src="https://picsum.photos/id/65/200/200" alt="Mia">
+                <h3>Mia</h3>
+                <p style="color: var(--accent); font-size: 0.9rem;">Lead Nail Artist</p>
+            </div>
+            <div>
+                <img src="https://picsum.photos/id/66/200/200" alt="Sophie">
+                <h3>Sophie</h3>
+                <p style="color: var(--accent); font-size: 0.9rem;">Acrylic Technician</p>
+            </div>
+        </div>
+    </main>
+
+    <main id="book" class="page">
+        <h2>Reserve Your Chair</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+            <form onsubmit="event.preventDefault(); alert('Appointment requested. Awaiting confirmation SMS.');">
+                <input type="text" placeholder="Full Name" required>
+                <input type="tel" placeholder="Phone Number" required>
+                <input type="date" required>
+                <select required>
+                    <option value="">Select Treatment...</option>
+                    <option>Classic Manicure / Pedicure</option>
+                    <option>BIAB Journey</option>
+                    <option>Gel-X Extensions + Art</option>
+                    <option>Removal & Care</option>
+                </select>
+                <button type="submit" class="btn" style="width: 100%;">Request Booking</button>
+            </form>
+            <div>
+                <h3 style="margin-bottom: 15px;">Location & Hours</h3>
+                <p>22 Fleet Road<br>Fleet, Hampshire, GU51 4BE<br><em>(Just 15 mins from Farnborough)</em></p>
+                <br>
+                <p><strong>Tue-Fri:</strong> 09:00 - 19:00<br><strong>Saturday:</strong> 09:00 - 17:00<br><strong>Sun-Mon:</strong> Closed</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 The Polished Lounge. Created by Yaseen Rashid.</p>
+    </footer>
+</div>
+
+<script>
+    function navigate(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelector(`[data-target="${pageId}"]`).classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
+</body>
+</html>
