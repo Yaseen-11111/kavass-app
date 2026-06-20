@@ -132,12 +132,12 @@ export const addonData: AddonData[] = [
         id: "a1",
         name: "Managed Hosting",
         description: "High-speed, secure UK-based servers with daily backups.",
-        price: "25",
+        price: 25,
     },
     {
         id: "a2",
         name: "Hosting & Maintenance",
         description: "Everything in hosting, plus monthly code updates and plugin management.",
-        price: "75",
+        price: 75,
     }
 ];
