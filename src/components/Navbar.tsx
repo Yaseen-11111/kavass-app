@@ -11,7 +11,7 @@ export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, currentTheme }) => 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="fixed w-full z-50 top-0 bg-nav-bg border-b border-nav-border transition-colors duration-300">
+        <nav className="fixed w-full z-50 top-0 bg-nav-bg transition-colors duration-300">
             <div className="text-nav-text max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo */}
                 <Link to="/" className="text-2xl font-black bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
