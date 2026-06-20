@@ -76,8 +76,8 @@ export const Hero = () => (
             ].map((item) => (
                 <div key={item.step} className="relative">
                     <div className="text-4xl font-black   mb-2">{item.step}</div>
-                    <h3 className="font-bold text-xl mb-2">{item.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">{item.desc}</p>
+                    <h3 className="font-bold text-xl mb-2 text-text">{item.title}</h3>
+                    <p className="text-gray-600 text-text/70">{item.desc}</p>
                 </div>
             ))}
         </div>
