@@ -1,3 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 1. This replaces all three legacy @tailwind directives */
+@import "tailwindcss";
+
+/* 2. Now the engine will properly register these variables */
+@theme {
+    --color-background: #b4deef;
+    --color-text: #1f2937;
+    --nav-bg: #273760;
+    --nav-text: #ffffff;
+    --nav-border: #000000;
+}
+
+/* 3. Base styles */
+@layer base {
+    body {
+        @apply bg-background text-text transition-colors duration-300;
+    }
+}
