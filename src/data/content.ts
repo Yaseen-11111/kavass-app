@@ -20,6 +20,7 @@ export interface PricingTier {
 }
 
 export interface AddonData { // Renamed to match your usage
+    id: string;
     name: string;
     description: string;
     price: string;
@@ -128,11 +129,13 @@ export const dynamicPricingData: PricingTier[] = [
 
 export const addonData: AddonData[] = [
     {
+        id: "a1",
         name: "Managed Hosting",
         description: "High-speed, secure UK-based servers with daily backups.",
         price: "25",
     },
     {
+        id: "a2",
         name: "Hosting & Maintenance",
         description: "Everything in hosting, plus monthly code updates and plugin management.",
         price: "75",

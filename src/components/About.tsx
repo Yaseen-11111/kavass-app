@@ -233,7 +233,7 @@ export const About = () => {
                 </div>
 
                 <div className="space-y-4 ">
-                    {faqs.map((faq, index) => (
+                    {faqs.map((faq, index:number) => (
                         <div
                             key={index}
                             className="bg-white dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800 rounded-2xl   transition-all duration-200"
