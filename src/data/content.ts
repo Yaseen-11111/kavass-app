@@ -12,6 +12,7 @@ export interface PricingTier {
     id: string;
     name: string;
     target: string;
+    onboarding: number;
     upfrontPrice: number;    // Updated to match your data
     monthlyPrice: number;    // Updated to match your data
     features: string[];
