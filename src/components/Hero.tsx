@@ -4,7 +4,7 @@ import {techStack} from "@/data/content.ts";
 import {CheckCircle} from "lucide-react";
 
 export const Hero = () => (
-    <section className="pt-40 pb-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
+    <section className="pt-5 pb-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
         <div className="relative pt-40 pb-20 px-6 text-center transition-colors">
             {/* Background Blur */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -82,16 +82,16 @@ export const Hero = () => (
             ))}
         </div>
         <div className="py-20 ">
-            <div className="max-w-3xl mx-auto px-6 text-center">
+            <div className="max-w-3xl mx-auto px-6 text-center text-text">
                 <h2 className="text-3xl font-bold mb-6">Stop choosing between custom design and site speed.</h2>
-                <p className="text-lg text-gray-600 dark:text-gray-400">
+                <p className="text-lg text-text/70">
                     Most website builders force you into rigid templates that degrade your SEO and brand identity.
                     We bridge the gap between bespoke engineering and intuitive management.
                 </p>
             </div>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-2">
-            <span className="text-sm text-gray-500">We specialize in:</span>
+            <span className="text-sm text-text/70">We specialize in:</span>
             {['SaaS', 'E-commerce', 'Creative Studios', 'Consultancies'].map((industry) => (
                 <span key={industry} className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
             {industry}
@@ -105,8 +105,8 @@ export const Hero = () => (
                 {title: "No Bloat", desc: "No unnecessary plugins or legacy code."},
             ].map((feature) => (
                 <div key={feature.title} className="p-6  rounded-2xl">
-                    <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">{feature.desc}</p>
+                    <h3 className="font-bold text-lg mb-2 text-text">{feature.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-text/70">{feature.desc}</p>
                 </div>
             ))}
         </div>
