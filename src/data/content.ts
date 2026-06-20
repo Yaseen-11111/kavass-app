@@ -92,7 +92,7 @@ export const portfolioData: PortfolioItem[] = [
         client: "Velocity Media, Aldershot",
         category: "Retail",
         imageUrl: "/kavass-app/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "//kavass-app/previews/SocialAgency.html"
+        previewUrl: "/kavass-app/previews/SocialAgency.html"
     }
 ];
 
