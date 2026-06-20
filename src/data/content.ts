@@ -84,14 +84,14 @@ export const portfolioData: PortfolioItem[] = [
         client: "Vanguard Legal, Guildford",
         category: "Legal Firm",
         imageUrl: "assets/projects/Legal.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "/kavass-app/src/assets/previews/LawFirm.html"
+        previewUrl: "/kavass-app/previews/LawFirm.html"
     },
     {
         id: "p6",
         title: "Velocity Media",
         client: "Velocity Media, Aldershot",
         category: "Retail",
-        imageUrl: "/kavass-app/src/assets/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "/kavass-app/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "/kavass-app/src/assets/previews/SocialAgency.html"
     }
 ];
