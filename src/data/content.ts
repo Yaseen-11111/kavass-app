@@ -26,15 +26,7 @@ export interface AddonData { // Renamed to match your usage
     price: string;
 }
 
-// Ensure your export looks like this
-export const addonData: AddonData[] = [
-    {
-        name: "Managed Hosting",
-        description: "High-speed, secure UK-based servers with daily backups.",
-        price: "25",
-    },
-    // ... rest of your items
-];
+
 
 // --- SITE CONTENT ---
 

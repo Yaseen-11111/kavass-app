@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../data/content';
+import { PortfolioItem } from '../data/content';
 
 export const Portfolio = () => {
-    const [selectedProject, setSelectedProject] = useState(null);
+    const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
     return (
         <section className="py-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
