@@ -5,7 +5,7 @@ import { ArrowRight, Zap, Target, Layers, Star, Plus, Minus } from 'lucide-react
 export const About = () => {
     const [openFaq, setOpenFaq] = useState(null);
 
-    const toggleFaq = (index) => {
+    const toggleFaq = (index:number) => {
         setOpenFaq(openFaq === index ? null : index);
     };
 
