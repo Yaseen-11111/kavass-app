@@ -1,0 +1,136 @@
+// --- TYPES & INTERFACES ---
+export interface PortfolioItem {
+    id: string;
+    title: string;
+    client: string;
+    category: string;
+    imageUrl: string;
+    liveUrl: string;
+}
+
+export interface PricingTier {
+    id: string;
+    name: string;
+    target: string;
+    price: string;
+    features: string[];
+    isPopular: boolean;
+}
+
+export interface AddonService {
+    name: string;
+    description: string;
+    price: string;
+}
+
+// --- SITE CONTENT ---
+
+export const contactInfo = {
+    whatsapp: "https://wa.me/447393547563", // Replace with your actual WhatsApp link [cite: 455]
+    instagram: "https://instagram.com/kavass.io", // Replace with your actual handle [cite: 455]
+    email: "hello@kavass.co.uk"
+};
+
+export const techStack = [
+    "Bespoke Modular Professional Website Application",
+    "Latest technology and security",
+    "Expert knowledge on web hosting",
+    "SSL Certificates for Security and peace of mide",
+    "Artistic with a unique approach",
+    "No long processes or hidden fee"
+]; // [cite: 458]
+
+export const portfolioData: PortfolioItem[] = [
+    {
+        id: "p1",
+        title: "Luxe Polished Nails",
+        client: "Luxe Polished Nails, Fleet",
+        category: "Independent Nail Bar",
+        imageUrl: "/assets/projects/NailBar.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "public/assets/previews/NailBar.html"
+    },
+    {
+        id: "p2",
+        title: "Razor & Blade",
+        client: "Razor & Blade, Aldershot",
+        category: "Independent Barber Shop",
+        imageUrl: "/assets/projects/Barber.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "public/assets/previews/BarberSite.html"
+    },
+    {
+        id: "p3",
+        title: "Apex Builders",
+        client: "Apex Builders, Camberley",
+        category: "Construction Company",
+        imageUrl: "/assets/projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "public/assets/previews/BuilderSite.html"
+    },
+    {
+        id: "p4",
+        title: "Saffron Indian",
+        client: "Saffron Indian, Farnborough",
+        category: "Restaurant",
+        imageUrl: "/assets/projects/Indian.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "public/assets/previews/SaffronKitchen.html"
+    },
+    {
+        id: "p5",
+        title: "Vanguard Legal",
+        client: "Vanguard Legal, Guildford",
+        category: "Legal Firm",
+        imageUrl: "/assets/projects/Legal.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "public/assets/previews/LawFirm.html"
+    },
+    {
+        id: "p6",
+        title: "Velocity Media",
+        client: "Velocity Media, Aldershot",
+        category: "Retail",
+        imageUrl: "/assets/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "public/assets/previews/SocialAgency.html"
+    }
+];
+
+export const dynamicPricingData: PricingTier[] = [
+    {
+        id: 'standard',
+        name: 'Standard',
+        target: 'For local businesses',
+        upfrontPrice: 850,
+        monthlyPrice: 100,
+        features: ['5 Custom Pages', 'Mobile Responsive', 'SEO Optimization', 'Contact Form Integration', 'Upto 1 week'],
+        other: 'First month Maintenance included',
+    },
+    {
+        id: 'growth',
+        name: 'Growth',
+        target: 'For scaling startups',
+        upfrontPrice: 1500,
+        monthlyPrice: 180,
+        isPopular: true,
+        features: ['10 Custom Pages', 'Advanced Animations', 'CMS Integration', 'Analytics Dashboard', 'Priority Support', 'Upto 1-3weeks'],
+        other: 'First 3 months of Maintenance included',
+    },
+    {
+        id: 'premium',
+        name: 'Premium',
+        target: 'For industry leaders',
+        upfrontPrice: 3000,
+        monthlyPrice: 350,
+        features: ['Unlimited Pages', 'Full E-commerce setup', 'Custom Web App Logic', 'Dedicated Developer', '24/7 Support*when I am awake', 'Upto 2-4 weeks'],
+        other: 'First 6 months of Maintenance included',
+    }
+];
+
+export const addonData: AddonData[] = [
+    {
+        name: "Managed Hosting",
+        description: "High-speed, secure UK-based servers with daily backups.",
+        price: "25",
+    },
+    {
+        name: "Hosting & Maintenance",
+        description: "Everything in hosting, plus monthly code updates and plugin management.",
+        price: "75",
+    }
+];

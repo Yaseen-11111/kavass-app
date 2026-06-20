@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity Media | Social Growth</title>
+    <style>
+        :root { --primary: #0B0F19; --accent: #6366F1; --text: #E2E8F0; --darker: #070A11; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        body { background: var(--primary); color: var(--text); overflow-x: hidden; }
+
+        /* Navigation - Floating Pill */
+        nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(7, 10, 17, 0.85); backdrop-filter: blur(10px); padding: 10px 20px; border-radius: 50px; display: flex; gap: 15px; z-index: 1000; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .nav-btn { background: none; border: none; color: #94A3B8; font-weight: 600; padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
+        .nav-btn:hover, .nav-btn.active { background: var(--accent); color: #fff; }
+
+        @media (max-width: 600px) { nav { width: 95%; justify-content: space-between; padding: 10px; } .nav-btn { padding: 10px; font-size: 0.8rem; } }
+
+        /* Content Area */
+        .header-logo { padding: 30px 5%; font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; color: #fff; }
+        .header-logo span { color: var(--accent); }
+
+        .page { display: none; padding: 40px 5% 120px 5%; min-height: 100vh; animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .page.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(to right, #fff, #94A3B8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 2.5rem; margin-bottom: 30px; color: #fff; }
+        p { color: #94A3B8; font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--darker); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card h3 { color: #fff; font-size: 1.5rem; margin-bottom: 15px; }
+
+        /* Form */
+        input, select { width: 100%; padding: 16px; margin-bottom: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; outline: none; }
+        input:focus, select:focus { border-color: var(--accent); }
+        .btn { padding: 16px 32px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; width: 100%; }
+
+        footer { text-align: center; padding: 20px; color: #475569; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body>
+
+<div class="header-logo">VELOCITY<span>MEDIA</span></div>
+
+<nav>
+    <button onclick="navigate('home')" class="nav-btn active" data-target="home">Home</button>
+    <button onclick="navigate('services')" class="nav-btn" data-target="services">Matrix</button>
+    <button onclick="navigate('work')" class="nav-btn" data-target="work">Clients</button>
+    <button onclick="navigate('audit')" class="nav-btn" data-target="audit">Get Audit</button>
+</nav>
+
+<main id="home" class="page active">
+    <div style="max-width: 800px; margin-top: 10vh;">
+        <h1>Scale Across Every Channel.</h1>
+        <p style="font-size: 1.3rem;">Based in Aldershot, operating globally. We build systematic, organic pipelines and computational ad performance parameters that command market retention.</p>
+    </div>
+    <div class="grid" style="margin-top: 60px;">
+        <div class="card">
+            <h2 style="color: var(--accent); margin:0;">4.2M+</h2>
+            <p>Clicks Generated (YTD)</p>
+        </div>
+        <div class="card">
+            <h2 style="color: var(--accent); margin:0;">310%</h2>
+            <p>Average ROAS Lift</p>
+        </div>
+    </div>
+</main>
+
+<main id="services" class="page">
+    <h2>Growth Frameworks</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Algorithmic Retain Video</h3>
+            <p>Short-form vertical video structures deployed across TikTok, Reels, and Shorts to force massive organic brand authority optimization.</p>
+        </div>
+        <div class="card">
+            <h3>ROAS Optimization Sprints</h3>
+            <p>Paid ad layout arrays targeting precision consumer demographics with machine learning assets on Meta and Google Networks.</p>
+        </div>
+        <div class="card">
+            <h3>Community Cultivation</h3>
+            <p>Discord and LinkedIn brand management protocols designed to convert fleeting impressions into loyal retention matrices.</p>
+        </div>
+    </div>
+</main>
+
+<main id="work" class="page">
+    <h2>Client Deployments</h2>
+    <div class="grid">
+        <div class="card" style="padding:0; overflow:hidden;">
+            <img src="https://picsum.photos/id/1062/500/300" style="width:100%; display:block;" alt="Ecom">
+            <div style="padding: 20px;">
+                <h3>Lumina Tech Gear</h3>
+                <p>Scaled D2C Shopify sales by 450% over 6 months using aggressive User Generated Content (UGC) paid sprint testing.</p>
+            </div>
+        </div>
+        <div class="card" style="padding:0; overflow:hidden;">
+            <img src="https://picsum.photos/id/40/500/300" style="width:100%; display:block;" alt="B2B">
+            <div style="padding: 20px;">
+                <h3>Apex Build Group</h3>
+                <p>Generated high-ticket commercial leads in the Farnborough area via highly targeted LinkedIn B2B ad arrays.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<main id="audit" class="page">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h2 style="text-align:center;">Request Strategy Audit</h2>
+        <p style="text-align:center;">Submit your domain and social handles below. We will cross-examine current asset infrastructure layout leaks.</p>
+        <form onsubmit="event.preventDefault(); alert('Audit telemetry synced. Our Aldershot team will email you the report within 48 hours.');">
+            <input type="text" placeholder="Company Domain (e.g. yoursite.com)" required>
+            <input type="text" placeholder="Primary Social Handle (@username)" required>
+            <input type="email" placeholder="Best Contact Email" required>
+            <select required>
+                <option value="">Primary Bottleneck...</option>
+                <option>High CPA / Low ROAS</option>
+                <option>Zero Organic Reach</option>
+                <option>Content Production Pipeline</option>
+            </select>
+            <button type="submit" class="btn">Initialize Audit Pipeline</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>Headquarters: 5 Wellington Centre, Aldershot, GU11 1DB. &copy; 2026 Velocity Media. Created by Yaseen Rashid.</p>
+</footer>
+
+<script>
+    function navigate(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelector(`[data-target="${pageId}"]`).classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
+</body>
+</html>
