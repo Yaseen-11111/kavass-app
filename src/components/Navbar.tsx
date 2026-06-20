@@ -8,8 +8,8 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, currentTheme }) => (
-    <nav className="fixed w-full z-50 top-0 color-background border-navBorder transition-colors duration-300">
-        <div className="text-navText max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav className="fixed w-full z-50 top-0 color-background nav-bg border-navBorder transition-colors duration-300">
+        <div className="text-navText bg-background max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <Link to="/" className="text-2xl font-black bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
                 KAVASS
             </Link>
