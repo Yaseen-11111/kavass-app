@@ -67,7 +67,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Apex Builders",
         client: "Apex Builders, Camberley",
         category: "Construction Company",
-        imageUrl: "./kavass-app/projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "/kavass-app/projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "/kavass-app/previews/BuilderSite.html"
     },
     {
