@@ -7,7 +7,6 @@ import { About } from './components/About';
 import { Portfolio } from './components/Portfolio';
 import { Pricing } from './components/Pricing';
 import { Contact } from './components/Contact';
-import { RouteHandler } from './components/RouteHandler';
 
 
 export default function App() {
@@ -15,7 +14,6 @@ export default function App() {
 
     return (
         <Router basename="/kavass-app/">
-            <RouteHandler>
             <div className="min-h-screen flex flex-col bg-background transition-colors duration-300 font-sans pt-20">
                 <Navbar toggleTheme={setTheme} currentTheme={colorTheme} />
 
@@ -34,7 +32,6 @@ export default function App() {
                     <p className="text-sm">All rights reserved by Yaseen Rashid</p>
                 </footer>
             </div>
-            </RouteHandler>
         </Router>
     );
 }
