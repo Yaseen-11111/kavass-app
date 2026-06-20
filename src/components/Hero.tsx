@@ -4,8 +4,8 @@ import {techStack} from "@/data/content.ts";
 import {CheckCircle} from "lucide-react";
 
 export const Hero = () => (
-    <section className="pt-5 pb-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
-        <div className="relative pt-40 pb-20 px-6 text-center transition-colors">
+    <section className="pt-5 pb-20 px-6 text-center transition-colors">
+        <div className="relative pt-5 pb-5 px-6 text-center transition-colors">
             {/* Background Blur */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -30,7 +30,7 @@ export const Hero = () => (
                 View Our Work
             </Link>
             <a href="#how-it-works"
-               className="text-gray-500 font-medium hover:text-primary transition-colors flex items-center gap-2">
+               className="text-text font-medium hover:text-primary transition-colors flex items-center gap-2">
                 See how it works<span>↓</span>
             </a>
             </div>
@@ -51,7 +51,7 @@ export const Hero = () => (
             </div>
         </div>
 
-        <div className="py-20 px-6 transition-colors ">
+        <div className="py-5 px-6 transition-colors ">
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-3xl font-bold text-center text-text mb-12">Our Engineering
                     Arsenal</h2>
