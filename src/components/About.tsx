@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, Target, Layers, Star, Plus, Minus } from 'lucide-react';
 
 export const About = () => {
-    const [openFaq, setOpenFaq] = useState(null);
-
+    const [openFaq, setOpenFaq] = useState<number | null>(null);
     const toggleFaq = (index:number) => {
         setOpenFaq(openFaq === index ? null : index);
     };
