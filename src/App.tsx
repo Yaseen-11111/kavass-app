@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDarkMode } from './hooks/useDarkMode';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -13,7 +13,7 @@ export default function App() {
     const [colorTheme, setTheme] = useDarkMode();
 
     return (
-        <Router basename="/kavass-app/">
+        <Router>
             <div className="min-h-screen flex flex-col bg-background transition-colors duration-300 font-sans pt-20">
                 <Navbar toggleTheme={setTheme} currentTheme={colorTheme} />
 
