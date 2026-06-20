@@ -6,22 +6,35 @@ export interface PortfolioItem {
     category: string;
     imageUrl: string;
     liveUrl: string;
+    previewUrl: string; // Added to match your data
 }
 
 export interface PricingTier {
     id: string;
     name: string;
     target: string;
-    price: string;
+    upfrontPrice: number;    // Updated to match your data
+    monthlyPrice: number;    // Updated to match your data
     features: string[];
-    isPopular: boolean;
+    isPopular?: boolean;     // Made optional (?) to handle tiers without this key
+    other?: string;          // Made optional (?) to handle tiers without this key
 }
 
-export interface AddonService {
+export interface AddonData { // Renamed to match your usage
     name: string;
     description: string;
     price: string;
 }
+
+// Ensure your export looks like this
+export const addonData: AddonData[] = [
+    {
+        name: "Managed Hosting",
+        description: "High-speed, secure UK-based servers with daily backups.",
+        price: "25",
+    },
+    // ... rest of your items
+];
 
 // --- SITE CONTENT ---
 

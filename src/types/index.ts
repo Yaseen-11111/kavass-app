@@ -15,3 +15,4 @@ export interface Template {
     previewUrl: string;
     difficultyRating: number;
 }
+
