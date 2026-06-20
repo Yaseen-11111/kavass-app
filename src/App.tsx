@@ -28,7 +28,7 @@ export default function App() {
                 </main>
 
                 <footer className="py-8 text-center text-gray-500 dark:text-gray-600 border-t border-gray-200 dark:border-gray-800 mt-auto">
-                    <p>© 2026 Kavass. Web design without the grid.</p>
+                    <p>© 2026 Kavass. Web design without the grid. All rights reserved by Yaseen Rashid</p>
                 </footer>
             </div>
         </Router>
