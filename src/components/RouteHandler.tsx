@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 interface RouteHandlerProps {
     children?: React.ReactNode;
 }
-export const RouteHandler = () => {
+export const RouteHandler:React.FC<RouteHandlerProps> = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
