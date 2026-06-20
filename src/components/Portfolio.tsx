@@ -2,17 +2,6 @@ import React, { useState } from 'react';
 import { portfolioData } from '../data/content';
 import { PortfolioItem } from '../data/content';
 
-// 1. Import the image
-import myPhoto from '@/assests/projects/'; // Change path to match your folder structure
-
-export default function Hero(name:string) {
-    return (
-        // 2. Use it as a variable
-        <img src={myPhoto/name} alt="Description of image" />
-    );
-}
-
-
 export const Portfolio = () => {
     const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
@@ -31,7 +20,7 @@ export const Portfolio = () => {
                         <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden aspect-video relative border border-gray-200 dark:border-gray-700">
                             {/* Changed to object-contain so full image fits without cropping */}
                             <img
-                                src={Hero(item.imageUrl)}
+                                src={item.imageUrl}
                                 alt={item.title}
                                 className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
                             />
