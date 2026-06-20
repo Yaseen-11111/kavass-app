@@ -1,25 +1,27 @@
 @import "tailwindcss";
 
 @theme {
+    /* Standard Colors */
     --color-primary: #3b82f6;
     --color-background: #b4deef;
     --color-text: #1f2937;
 
-    --nav-bg: #27376080;
-    --nav-text: #ffffff;
-    --nav-border: #000000;
+    /* Navbar Colors - Prefixed with --color- to generate utilities */
+    --color-nav-bg: #27376080;
+    --color-nav-text: #ffffff;
+    --color-nav-border: #000000;
 }
 
-/* Dark mode overrides using CSS variables */
+/* Dark mode overrides */
 .dark {
     --color-primary: #60a5fa;
     --color-background: #0f172a;
     --color-text: #f9fafb;
-    --nav-border: #1f2937;
+    --color-nav-border: #1f2937;
 
-
-    --nav-bg: #27376080;
-    --nav-text: #ffffff;
+    /* Ensure these match the new variable names */
+    --color-nav-bg: #27376080;
+    --color-nav-text: #ffffff;
 }
 
 @layer base {
