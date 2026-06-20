@@ -67,7 +67,7 @@ export const Hero = () => (
                 </div>
             </div>
         </div>
-        <div id="how-it-works" className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto py-20">
+        <div id="how-it-works" className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto pt-5 pb-5">
             {[
                 {step: "01", title: "Strategy", desc: "We define your brand goals and user journey."},
                 {step: "02", title: "Architect", desc: "I build clean, custom code structures."},
@@ -81,7 +81,7 @@ export const Hero = () => (
                 </div>
             ))}
         </div>
-        <div className="py-20 ">
+        <div className="py-5">
             <div className="max-w-3xl mx-auto px-6 text-center text-text">
                 <h2 className="text-3xl font-bold mb-6">Stop choosing between custom design and site speed.</h2>
                 <p className="text-lg text-text/70">
@@ -93,7 +93,7 @@ export const Hero = () => (
         <div className="mt-8 flex flex-wrap justify-center gap-2">
             <span className="text-sm text-text/70">We specialize in:</span>
             {['SaaS', 'E-commerce', 'Creative Studios', 'Consultancies'].map((industry) => (
-                <span key={industry} className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+                <span key={industry} className="text-sm px-3 py-1 text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 rounded-full">
             {industry}
         </span>
             ))}
