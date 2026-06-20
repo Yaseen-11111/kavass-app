@@ -5,7 +5,6 @@ import {CheckCircle} from "lucide-react";
 
 export const Hero = () => (
     <section className="pt-40 pb-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
-        // Added 'relative' to constrain the absolute blur blob
         <div className="relative pt-40 pb-20 px-6 text-center transition-colors">
             {/* Background Blur */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -54,14 +53,15 @@ export const Hero = () => (
 
         <div className="py-20 px-6 transition-colors ">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">Our Engineering
+                <h2 className="text-3xl font-bold text-center text-text mb-12">Our Engineering
                     Arsenal</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
                     {techStack.map((tech, index) => (
                         <div key={index}
-                             className="p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4 hover:scale-105 transition-transform">
+
+                             className="bg-gray-800 dark:bg-white p-6 rounded-xl shadow-sm border border-gray-700 dark:border-gray-200 flex items-center gap-4 hover:scale-105 transition-transform">
                             <CheckCircle className="text-blue-500" size={24}/>
-                            <span className="font-semibold text-lg text-gray-800 dark:text-gray-200">{tech}</span>
+                            <span className="font-semibold text-lg text-white">{tech}</span>
                         </div>
                     ))}
                 </div>
