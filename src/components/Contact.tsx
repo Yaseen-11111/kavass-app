@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, Instagram } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
 // Use it as a standard component
