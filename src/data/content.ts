@@ -52,7 +52,7 @@ export const portfolioData: PortfolioItem[] = [
         client: "Luxe Polished Nails, Fleet",
         category: "Independent Nail Bar",
         imageUrl: "NailBar.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "/kavass-app/public/assets//previews/NailBar.html"
+        previewUrl: "/kavass-app/public/assets/projects/NailBar.html"
     },
     {
         id: "p2",
@@ -60,7 +60,7 @@ export const portfolioData: PortfolioItem[] = [
         client: "Razor & Blade, Aldershot",
         category: "Independent Barber Shop",
         imageUrl: "Barber.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "/kavass-app/assets/previews/BarberSite.html"
+        previewUrl: "/kavass-app/assets/projects/BarberSite.html"
     },
     {
         id: "p3",
