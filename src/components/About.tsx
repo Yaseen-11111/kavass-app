@@ -101,10 +101,10 @@ export const About = () => {
 
                 <div className="bg-blue-50 dark:bg-blue-900/20 p-8 rounded-3xl border border-blue-100 dark:border-blue-800 shadow-sm relative overflow-hidden">
                     <div className="absolute -right-6 -top-6 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-20 blur-2xl"></div>
-                    <h3 className="text-xl font-bold text-blue-900 dark:text-blue-100 mb-4 relative z-10">
+                    <h3 className="text-xl font-bold text-text mb-4 relative z-10">
                         The Philosophy
                     </h3>
-                    <blockquote className="text-lg italic text-blue-800 dark:text-blue-200 relative z-10 leading-relaxed">
+                    <blockquote className="text-lg italic text-text relative z-10 leading-relaxed">
                         "Your website should be the strongest asset in your company,
                         not a checkbox on a to-do list. I work with founders who understand
                         that design is not just how it looks, but how it works and converts."
@@ -134,14 +134,14 @@ export const About = () => {
 
             {/* The Kavass Standard */}
             <div className="mb-24">
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-10">
+                <h2 className="text-3xl font-bold text-text mb-10">
                     The Kavass Standard
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="p-8 bg-white dark:bg-gray-800/50 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800">
                         <Zap className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-6" />
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">High Performance</h3>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <h3 className="text-xl font-bold text-text mb-3">High Performance</h3>
+                        <p className="text-text leading-relaxed">
                             Blazing fast load times and optimized codebases that rank higher on search engines and keep users engaged.
                         </p>
                     </div>
