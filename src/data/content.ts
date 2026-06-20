@@ -51,39 +51,39 @@ export const portfolioData: PortfolioItem[] = [
         title: "Luxe Polished Nails",
         client: "Luxe Polished Nails, Fleet",
         category: "Independent Nail Bar",
-        imageUrl: "NailBar.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "/kavass-app/public/assets/projects/NailBar.html"
+        imageUrl: "/kavass-app/projects/NailBar.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "/kavass-app/previews/NailBar.html"
     },
     {
         id: "p2",
         title: "Razor & Blade",
         client: "Razor & Blade, Aldershot",
         category: "Independent Barber Shop",
-        imageUrl: "Barber.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "/kavass-app/assets/projects/BarberSite.html"
+        imageUrl: "/kavass-app/projects/Barber.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "/kavass-app/previews/BarberSite.html"
     },
     {
         id: "p3",
         title: "Apex Builders",
         client: "Apex Builders, Camberley",
         category: "Construction Company",
-        imageUrl: "./assets/projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "assets/previews/BuilderSite.html"
+        imageUrl: "./kavass-app/projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "/kavass-app/previews/BuilderSite.html"
     },
     {
         id: "p4",
         title: "Saffron Indian",
         client: "Saffron Indian, Farnborough",
         category: "Restaurant",
-        imageUrl: "assets/projects/Indian.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "./assets/previews/SaffronKitchen.html"
+        imageUrl: "/kavass-app/projects/Indian.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "/kavass-app/previews/SaffronKitchen.html"
     },
     {
         id: "p5",
         title: "Vanguard Legal",
         client: "Vanguard Legal, Guildford",
         category: "Legal Firm",
-        imageUrl: "assets/projects/Legal.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "/kavass-app/projects/Legal.png", // Ensure you add this image to your public folder [cite: 459]
         previewUrl: "/kavass-app/previews/LawFirm.html"
     },
     {
@@ -92,7 +92,7 @@ export const portfolioData: PortfolioItem[] = [
         client: "Velocity Media, Aldershot",
         category: "Retail",
         imageUrl: "/kavass-app/projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "/kavass-app/src/assets/previews/SocialAgency.html"
+        previewUrl: "//kavass-app/previews/SocialAgency.html"
     }
 ];
 
