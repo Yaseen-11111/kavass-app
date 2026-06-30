@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { CheckCircle, Shield, Server, Code, ShoppingCart, Info, Calendar, ArrowRight } from 'lucide-react';
 import { dynamicPricingData, addonData } from "@/data/content.ts";
+import {usePricingController} from "@/controllers/usePricingController.tsx";
 
 const dynamicPricingDataC = dynamicPricingData;
 const addonDataC = addonData;
@@ -21,74 +22,13 @@ export const Pricing = () => {
     // ==========================================
     // 2. PRICING LOGIC & CALCULATIONS (Modularized via useMemo)
     // ==========================================
-    const pricing = useMemo(() => {
-        // Dynamically fetch prices from your addonData
-        const hostingData = addonDataC.find(a => a.id === "a1");
-        const hmData = addonDataC.find(a => a.id === "a2");
-
-        const baseHostingFee = Math.round(hostingData?.price || 25);
-        const baseHMFee = Math.round(hmData?.price || 75);
-
-        // Upfront Costs
-        const totalUpfront = selectedTier ? (
-            (isMonthly ? 0 : selectedTier.upfrontPrice) + selectedTier.onboarding
-        ) : 0;
-
-        // Base Monthly Build Costs
-        let rawMonthlyBuild = 0;
-        if (selectedTier && isMonthly) {
-            rawMonthlyBuild = Math.round(selectedTier.monthlyPrice);
-            // Condition: Monthly cost is 20% less when selecting Hosting & Maintenance for life
-            if (hostingPlan === 'hm') {
-                rawMonthlyBuild = Math.round(rawMonthlyBuild * 0.8);
-            }
-        }
-
-        let currentMonthlyTotal = 0;
-        let currentAddonCost = 0;
-        let phasedPricing = null;
-
-        if (!isMonthly) {
-            // UPFRONT LOGIC
-            if (hostingPlan === 'hosting') {
-                currentAddonCost = baseHostingFee;
-                currentMonthlyTotal = currentAddonCost;
-            } else if (hostingPlan === 'hm') {
-                currentAddonCost = baseHostingFee; // Month 1-3 starts at just hosting cost
-                currentMonthlyTotal = currentAddonCost;
-                phasedPricing = {
-                    months1to3: baseHostingFee,
-                    months4to12: baseHMFee * 0.7,
-                    year2Plus: baseHMFee
-                };
-            }
-        } else {
-            // MONTHLY LOGIC
-            if (hostingPlan === 'hosting') {
-                currentAddonCost = baseHostingFee;
-            } else if (hostingPlan === 'hm') {
-                currentAddonCost = baseHMFee;
-            }
-
-            let subtotal = rawMonthlyBuild + currentAddonCost;
-
-            // Apply Contract Discounts
-            if (contractTerm === 12) subtotal = subtotal * 0.9;
-            if (contractTerm === 24) subtotal = subtotal * 0.8;
-
-            currentMonthlyTotal = subtotal;
-        }
-
-        return {
-            baseHostingFee,
-            baseHMFee,
-            totalUpfront,
-            rawMonthlyBuild,
-            currentMonthlyTotal,
-            currentAddonCost,
-            phasedPricing
-        };
-    }, [isMonthly, selectedTier, hostingPlan, contractTerm]);
+    const pricing = usePricingController();
+    const {
+        isMonthly,
+        totalMonthly,
+        phasedPricing,
+        setContractTerm
+    } = usePricingController();
 
     // ==========================================
     // 3. RENDER UI
@@ -108,7 +48,7 @@ export const Pricing = () => {
 
                     <div className="flex flex-col items-center gap-6 mt-8">
                         <div className="flex justify-center items-center gap-4 bg-white dark:bg-gray-800 p-2 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
-                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${!isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => setIsMonthly(false)}>
+                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${!isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => pricing.setIsMonthly(false)}>
                                 Pay Upfront
                             </span>
                             <button
@@ -117,7 +57,7 @@ export const Pricing = () => {
                             >
                                 <div className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform duration-300 shadow-sm ${isMonthly ? 'left-8' : 'left-1'}`}></div>
                             </button>
-                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => setIsMonthly(true)}>
+                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => pricing.setIsMonthly(true)}>
                                 Pay Monthly
                             </span>
                         </div>

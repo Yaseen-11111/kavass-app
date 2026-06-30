@@ -1,98 +1,95 @@
-import {useState} from "react";
-import {addonData, dynamicPricingData} from "@/data/content.ts";
+import { useState } from "react";
+import { addonData, dynamicPricingData } from "@/data/content.ts";
 
-export const usePricingController =() => {
+export const usePricingController = () => {
+    // 1. State
     const [isMonthly, setIsMonthly] = useState<boolean>(false);
     const [selectedTierId, setSelectedTierId] = useState<string | null>(null);
-    // REMOVED: selectedDataId (It was causing the 0 price bug)
     const [hostingPlan, setHostingPlan] = useState<'none' | 'hosting' | 'maintenance'>('none');
+    const [contractTerm, setContractTerm] = useState<1 | 12 | 24>(1);
     const [includeCarePlan, setIncludeCarePlan] = useState<boolean>(false);
 
-    // ==========================================
-    // 2. PRICING & DISCOUNT LOGIC
-    // ==========================================
+    // 2. Data Retrieval
+    const selectedTier = dynamicPricingData.find(t => t.id === selectedTierId) || null;
+    const hostingBase = Math.round(addonData.find(t => t.id === 'hosting')?.price || 25);
+    const maintBase = Math.round(addonData.find(t => t.id === 'maintenance')?.price || 75);
 
-    // Calculates the base Website Build fee
-    const calculatePrice = (baseMonthly: number, baseUpfront: number) => {
-        if (!isMonthly) return `£${baseUpfront}`;
+    // 3. Logic & Calculations
 
-        // Applies a 30% discount (multiply by 0.70) if Monthly AND Care Plan are active
-        const finalMonthly = Math.round(includeCarePlan ? baseMonthly * 0.70 : baseMonthly);
-        return `£${finalMonthly}/mo`;
-    };
-
-    // Helper to calculate add-on prices.
-    const getAddonPrice = (basePrice: number, isEligibleForDiscount: boolean) => {
-        // Only apply the 25% discount if Monthly is toggled AND the plan allows it
-        const hasDiscount = isMonthly && isEligibleForDiscount;
-        const discountedPrice = Math.round(basePrice * 0.75);
-
-        return {
-            price: hasDiscount ? discountedPrice : basePrice,
-            isDiscounted: hasDiscount,
-            originalPrice: basePrice
-        };
-    };
-
-    // NEW LOGIC: Find specific addon prices from your data file securely
-    // (Added fallbacks to 25 and 75 just in case the data file takes a second to load)
-    const hostingBasePrice = addonData.find(t => t.id === 'hosting')?.price || 25;
-    const maintenanceBasePrice = addonData.find(t => t.id === 'maintenance')?.price || 75;
-
-    // Pre-calculate our specific add-on tiers
-    const hostOnly = getAddonPrice(hostingBasePrice, false);      // FALSE = No discount ever
-    const hostMaintenance = getAddonPrice(maintenanceBasePrice, true); // TRUE = Gets 25% off when Monthly is selected
-
-    // ==========================================
-    // 3. CHECKOUT & TOGGLE HELPERS
-    // ==========================================
-
-    // Find the full data object for the selected tier
-    const selectedTier = dynamicPricingData.find(t => t.id === selectedTierId);
-
-    // Calculate exact build cost for the checkout panel
-    const getBuildMonthlyCost = () => {
+    // --- Build Cost Calculation ---
+    const getBaseBuildPrice = () => {
         if (!selectedTier || !isMonthly) return 0;
-        return Math.round(includeCarePlan ? selectedTier.monthlyPrice * 0.70 : selectedTier.monthlyPrice);
+        let price = selectedTier.monthlyPrice;
+
+        // 20% discount if Maintenance enabled
+        if (hostingPlan === 'maintenance') price *= 0.8;
+        // 30% discount if Care Plan enabled
+        if (includeCarePlan) price *= 0.7;
+
+        return Math.round(price);
     };
 
-    // Calculate exact add-on cost for the checkout panel
-    const getAddonMonthlyCost = () => {
-        if (hostingPlan === 'hosting') return hostOnly.price;
-        if (hostingPlan === 'maintenance') return hostMaintenance.price;
+    // --- Addon Cost Calculation ---
+    const getAddonCost = () => {
+        if (hostingPlan === 'hosting') return hostingBase;
+        if (hostingPlan === 'maintenance') {
+            // 25% discount on maintenance if monthly
+            return isMonthly ? Math.round(maintBase * 0.75) : maintBase;
+        }
         return 0;
     };
 
-    // Two-way sync: Clicking Care Plan toggles Maintenance, and vice versa
+    // --- Total Logic ---
+    const buildMonthly = getBaseBuildPrice();
+    const addonMonthly = getAddonCost();
+
+    // Apply Contract Discounts to the subtotal
+    const subtotal = buildMonthly + addonMonthly;
+    const contractMultiplier = contractTerm === 12 ? 0.9 : contractTerm === 24 ? 0.8 : 1;
+    const totalMonthly = Math.round(subtotal * contractMultiplier);
+
+    // Upfront Logic
+    const totalUpfront = !isMonthly && selectedTier
+        ? selectedTier.upfrontPrice + selectedTier.onboarding
+        : 0;
+
+    // Phased Pricing (Only for Upfront + Maintenance)
+    const getPhasedPricing = () => {
+        if (isMonthly || hostingPlan !== 'maintenance') return null;
+        return {
+            months1to3: hostingBase,
+            months4to12: Math.round(maintBase * 0.7),
+            year2Plus: maintBase
+        };
+    };
+
+    // --- Helpers ---
     const toggleMaintenanceAndCare = () => {
         const isTurningOn = hostingPlan !== 'maintenance';
         setHostingPlan(isTurningOn ? 'maintenance' : 'none');
         setIncludeCarePlan(isTurningOn);
     };
 
-    // Totals for the bottom summary
-    const totalUpfront = !isMonthly && selectedTier ? selectedTier.upfrontPrice : 0;
-    const totalMonthly = getBuildMonthlyCost() + getAddonMonthlyCost();
-
     return {
-        isMonthly,
-        setIsMonthly,
-        selectedTierId,
+        currentMonthlyTotal,
+        phasedPricing,
+        // State
+        isMonthly, setIsMonthly,
+        selectedTierId, setSelectedTierId,
+        hostingPlan, setHostingPlan,
+        contractTerm, setContractTerm,
+        includeCarePlan, setIncludeCarePlan,
+
+        // Data & Computed
         selectedTier,
-        setSelectedTierId,
-        hostingPlan,
-        setHostingPlan,
-        includeCarePlan,
-        setIncludeCarePlan,
-        calculatePrice,
-        getAddonPrice,
-        getAddonMonthlyCost,
-        getBuildMonthlyCost,
-        addonData,
-        dynamicPricingData,
         totalMonthly,
         totalUpfront,
+
+        phasedPricing: getPhasedPricing(),
+
+        // Helper Methods
         toggleMaintenanceAndCare,
-        hostOnly, hostingBasePrice, hostMaintenance
+        hostingBase,
+        maintBase
     };
-}
+};
