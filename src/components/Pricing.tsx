@@ -1,35 +1,130 @@
-import React from 'react';
-import { CheckCircle, Shield, Server, Code, ShoppingCart, Info } from 'lucide-react';
-import {usePricingController} from "@/controllers/usePricingController.tsx";
+import React, { useState } from 'react';
+import { CheckCircle, Shield, Server, Code, ShoppingCart, Info, Calendar } from 'lucide-react';
+import { techStack } from "@/data/content.ts"; // Assuming this exists based on your previous code
 
-// Ensure these are correctly pointing to your data files
+// NOTE: Since the requested logic changes how prices are calculated entirely,
+// the logic has been integrated here so it works immediately. You can refactor
+// this back into usePricingController if preferred.
+
+// Mock data structure based on your request (Replace with your actual import from data.ts)
+const dynamicPricingData = [
+    {
+        id: 'tier-1',
+        name: 'Starter',
+        target: 'For early-stage startups.',
+        upfrontPrice: 2500,
+        monthlyPrice: 250,
+        onboarding: 500,
+        features: ['Custom Design', '5 Pages', 'Basic SEO', 'Contact Form'],
+        isPopular: false,
+        other: 'Domain fees separate.'
+    },
+    {
+        id: 'tier-2',
+        name: 'Growth',
+        target: 'For scaling businesses.',
+        upfrontPrice: 5000,
+        monthlyPrice: 450,
+        onboarding: 800,
+        features: ['Advanced Animations', '10 Pages', 'CMS Integration', 'Analytics Setup'],
+        isPopular: true,
+        other: 'Domain fees separate.'
+    },
+    {
+        id: 'tier-3',
+        name: 'Enterprise',
+        target: 'For complex applications.',
+        upfrontPrice: 10000,
+        monthlyPrice: 850,
+        onboarding: 1500,
+        features: ['Custom Web App', 'Unlimited Pages', 'API Integrations', 'Priority Support'],
+        isPopular: false,
+        other: 'Domain fees separate.'
+    }
+];
 
 export const Pricing = () => {
     // ==========================================
     // 1. STATE MANAGEMENT
     // ==========================================
-    const {
-        isMonthly,
-        setIsMonthly,
-        selectedTierId,
-        selectedTier,
-        setSelectedTierId,
-        hostingPlan,
-        setHostingPlan,
-        includeCarePlan,
-        setIncludeCarePlan,
-        calculatePrice,
-        getAddonMonthlyCost,
-        getBuildMonthlyCost,
-        dynamicPricingData,
-        totalMonthly,
-        totalUpfront,
-        toggleMaintenanceAndCare,
-        hostOnly, hostMaintenance
-    } = usePricingController();
+    const [isMonthly, setIsMonthly] = useState(false);
+    const [selectedTierId, setSelectedTierId] = useState<string | null>(null);
+    const [hostingPlan, setHostingPlan] = useState<'none' | 'hosting' | 'hm'>('none');
+
+    // Contract Terms: 1 = 1 Month, 12 = 1 Year, 24 = 2 Years
+    const [contractTerm, setContractTerm] = useState<1 | 12 | 24>(1);
+
+    // Define base addon prices
+    const baseHostingFee = 30; // Pure hosting
+    const baseMaintenanceFee = 120; // Pure maintenance (Total H&M = £150)
+    const baseHMFee = baseHostingFee + baseMaintenanceFee;
+
+    const selectedTier = dynamicPricingData.find(t => t.id === selectedTierId);
 
     // ==========================================
-    // 4. RENDER UI
+    // 2. PRICING LOGIC & CALCULATIONS
+    // ==========================================
+
+    // Calculate Upfront Costs
+    const totalUpfront = selectedTier ? (
+        (isMonthly ? 0 : selectedTier.upfrontPrice) + selectedTier.onboarding
+    ) : 0;
+
+    // Calculate Base Monthly Costs
+    let rawMonthlyBuild = 0;
+    if (selectedTier && isMonthly) {
+        rawMonthlyBuild = selectedTier.monthlyPrice;
+        // Condition: Monthly cost is 20% less when selecting Hosting & Maintenance for life
+        if (hostingPlan === 'hm') {
+            rawMonthlyBuild = rawMonthlyBuild * 0.8;
+        }
+    }
+
+    // Calculate Monthly Addon Costs & Total based on conditions
+    let currentMonthlyTotal = 0;
+    let currentAddonCost = 0;
+
+    // Phased Pricing for Upfront UI display
+    let phasedPricing = null;
+
+    if (!isMonthly) {
+        // UPFRONT LOGIC
+        if (hostingPlan === 'hosting') {
+            currentAddonCost = baseHostingFee;
+            currentMonthlyTotal = currentAddonCost;
+        } else if (hostingPlan === 'hm') {
+            // Condition: 30% off H&M up to 10hrs/mo.
+            // First 3 months: Maintenance free (Hosting only).
+            // Months 4-12: 30% off total H&M.
+            // Year 2+: Full price.
+            currentAddonCost = baseHostingFee; // Month 1-3 starts at just hosting cost
+            currentMonthlyTotal = currentAddonCost;
+
+            phasedPricing = {
+                months1to3: baseHostingFee,
+                months4to12: baseHMFee * 0.7,
+                year2Plus: baseHMFee
+            };
+        }
+    } else {
+        // MONTHLY LOGIC
+        if (hostingPlan === 'hosting') {
+            currentAddonCost = baseHostingFee;
+        } else if (hostingPlan === 'hm') {
+            currentAddonCost = baseHMFee;
+        }
+
+        let subtotal = rawMonthlyBuild + currentAddonCost;
+
+        // Apply Contract Discounts (10% off altogether for 1yr, 20% off for 2yr)
+        if (contractTerm === 12) subtotal = subtotal * 0.9;
+        if (contractTerm === 24) subtotal = subtotal * 0.8;
+
+        currentMonthlyTotal = subtotal;
+    }
+
+    // ==========================================
+    // 3. RENDER UI
     // ==========================================
     return (
         <section className="py-20 px-6 w-full bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -48,6 +143,25 @@ export const Pricing = () => {
                         </button>
                         <span className={`text-sm font-medium ${isMonthly ? 'text-gray-900 dark:text-white' : 'text-gray-500'}`}>Pay Monthly</span>
                     </div>
+
+                    {/* Contract Term Selector (Only visible for Monthly) */}
+                    {isMonthly && (
+                        <div className="mt-8 inline-flex bg-gray-200 dark:bg-gray-800 p-1 rounded-xl">
+                            {[
+                                { val: 1, label: '1 Month' },
+                                { val: 12, label: '1 Year (10% Off)' },
+                                { val: 24, label: '2 Years (20% Off)' }
+                            ].map((term) => (
+                                <button
+                                    key={term.val}
+                                    onClick={() => setContractTerm(term.val as 1|12|24)}
+                                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${contractTerm === term.val ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
+                                >
+                                    {term.label}
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* --- 1. PRICING CARDS GRID --- */}
@@ -66,27 +180,23 @@ export const Pricing = () => {
                                     {isSelected && <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Selected</span>}
                                 </div>
 
-                                <p className={`${tier.isPopular && !isSelected ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'} mt-2`}>{tier.target}</p>
+                                <p className={`${tier.isPopular && !isSelected ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'} mt-2 text-sm`}>{tier.target}</p>
 
-                                {/* Only show the 'other' text (e.g. Domain fees) if Upfront is selected */}
-                                {!isMonthly && (
-                                    <p className={`${tier.isPopular && !isSelected ? 'text-green-300' : 'text-green-600 dark:text-green-400'} mt-2 font-medium text-sm`}>
-                                        {tier.other}
-                                    </p>
-                                )}
-
-                                <div className="my-6">
-                                    {isMonthly && includeCarePlan && (
-                                        <div className="text-sm line-through opacity-50 mb-1">£{tier.monthlyPrice}/mo</div>
-                                    )}
-                                    <div className="text-4xl font-black">{calculatePrice(tier.monthlyPrice, tier.upfrontPrice)}</div>
+                                <div className="mt-6 mb-4">
+                                    <div className="text-4xl font-black mb-1">
+                                        £{isMonthly ? tier.monthlyPrice : tier.upfrontPrice}
+                                        {isMonthly && <span className="text-lg font-medium text-gray-400">/mo</span>}
+                                    </div>
+                                    <div className={`text-sm font-medium ${tier.isPopular && !isSelected ? 'text-blue-200' : 'text-gray-500'}`}>
+                                        + £{tier.onboarding} Onboarding Fee (One-time)
+                                    </div>
                                 </div>
 
                                 <ul className={`space-y-4 mb-8 ${tier.isPopular && !isSelected ? 'text-blue-50' : 'text-gray-600 dark:text-gray-300'}`}>
                                     {tier.features.map((feature, index) => (
                                         <li key={index} className="flex gap-2">
                                             <CheckCircle size={20} className={tier.isPopular && !isSelected ? 'text-white' : 'text-blue-500 flex-shrink-0'}/>
-                                            <span>{feature}</span>
+                                            <span className="text-sm">{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -105,107 +215,57 @@ export const Pricing = () => {
                 <div className="max-w-5xl mx-auto w-full space-y-8">
                     <div className="w-full bg-white dark:bg-gray-800 p-8 md:p-12 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-sm">
 
-                        {/* Ownership & Hosting Explanation */}
-                        <div className="w-full mb-12">
-                            <h3 className="text-2xl font-bold text-center mb-10 text-gray-900 dark:text-white">How We Handle Your Setup</h3>
-                            <div className="grid md:grid-cols-2 gap-12 text-left">
-                                <div>
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <Shield className="text-blue-600" size={24}/>
-                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white">1. Your Domain (Ownership)</h4>
-                                    </div>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                                        You should always hold the "keys" to your digital identity. We guide you through purchasing your domain directly, ensuring you remain the legal owner.
-                                    </p>
-                                </div>
-                                <div>
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <Server className="text-purple-600" size={24}/>
-                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white">2. Your Hosting (Infrastructure)</h4>
-                                    </div>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                                        We handle the technical heavy lifting. Your site lives on our high-performance, secure servers where we manage all speed optimizations and security patches.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr className="border-gray-200 dark:border-gray-700 mb-12"/>
-
-                        {/* Customization Selectors */}
                         <div className="w-full">
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Customize Your Plan</h3>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Customize Your Infrastructure</h3>
                             <div className="grid md:grid-cols-2 gap-6 text-left">
 
-                                {/* Care Plan Toggle */}
+                                {/* Basic Hosting */}
                                 <div
-                                    onClick={toggleMaintenanceAndCare}
-                                    className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${includeCarePlan ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900'} flex gap-4 h-full`}
+                                    onClick={() => setHostingPlan(hostingPlan === 'hosting' ? 'none' : 'hosting')}
+                                    className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hosting' ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900'} flex gap-4 h-full`}
                                 >
-                                    <Shield className={includeCarePlan ? 'text-cyan-600 flex-shrink-0' : 'text-gray-400 flex-shrink-0'} size={32}/>
+                                    <Server className={hostingPlan === 'hosting' ? 'text-blue-600 flex-shrink-0' : 'text-gray-400 flex-shrink-0'} size={32}/>
                                     <div>
-                                        <h4 className="font-bold text-gray-900 dark:text-white text-lg">What is maintenance? It is the Kavass Care Plan</h4>
+                                        <h4 className="font-bold text-gray-900 dark:text-white text-lg">Managed Hosting Only</h4>
                                         <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 mb-3">
-                                            Priority support, unlimited minor edits, and top-tier security.
+                                            Fast, secure UK servers. Technical management handled behind the scenes.
+                                        </p>
+                                        <span className="font-bold text-gray-900 dark:text-white">+£{baseHostingFee}/mo</span>
+                                    </div>
+                                </div>
+
+                                {/* Hosting & Maintenance */}
+                                <div
+                                    onClick={() => setHostingPlan(hostingPlan === 'hm' ? 'none' : 'hm')}
+                                    className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hm' ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900'} flex gap-4 h-full`}
+                                >
+                                    <Shield className={hostingPlan === 'hm' ? 'text-cyan-600 flex-shrink-0' : 'text-gray-400 flex-shrink-0'} size={32}/>
+                                    <div>
+                                        <h4 className="font-bold text-gray-900 dark:text-white text-lg">Hosting & Maintenance</h4>
+                                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 mb-3">
+                                            Hosting plus up to 10hrs/mo of edits, technical support, and updates.
                                         </p>
 
-                                        <div
-                                            className="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold px-3 py-1 rounded-full">
-                                            Unlocks 30% OFF the monthly fee for the Website, excluding Hosting and
-                                            Maintenance. Only on upfront. Domain fees separate.
-                                        </div>
+                                        {/* Dynamic Discount Badges based on Payment Mode */}
+                                        {!isMonthly ? (
+                                            <div className="inline-block bg-cyan-100 dark:bg-cyan-900/50 text-cyan-800 dark:text-cyan-300 text-xs font-bold px-3 py-2 rounded-lg mt-2">
+                                                🎁 1st 3 Months Maintenance FREE<br/>
+                                                ⚡ 30% OFF for the rest of Year 1
+                                            </div>
+                                        ) : (
+                                            <div className="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-2 rounded-lg mt-2">
+                                                📉 Unlocks 20% OFF your monthly build fee for life.
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
-                                {/* Add-on Toggles */}
-                                <div className="flex flex-col gap-4">
-
-                                    {/* Managed Hosting (NO DISCOUNT) */}
-                                    <div
-                                        onClick={() => {
-                                            setHostingPlan(hostingPlan === 'hosting' ? 'none' : 'hosting');
-                                            setIncludeCarePlan(false); // Deselect Care Plan if they switch to Basic Hosting
-                                        }}
-                                        className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${hostingPlan === 'hosting' ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900'} flex justify-between items-center flex-1`}
-                                    >
-                                        <div className="flex gap-3 items-center">
-                                            <Server className={hostingPlan === 'hosting' ? 'text-blue-600' : 'text-gray-400'} size={24}/>
-                                            <div>
-                                                <h4 className="font-bold text-gray-900 dark:text-white">Managed Hosting</h4>
-                                                <p className="text-gray-500 dark:text-gray-400 text-xs">Fast, secure UK servers</p>
-                                                {/* Notice: No discount badge rendered here because hostOnly.isDiscounted will always be false */}
-                                            </div>
-                                        </div>
-                                        <span className="font-bold text-gray-900 dark:text-white">+£{hostOnly.price}/mo</span>
-                                    </div>
-
-                                    {/* Hosting & Maintenance (DISCOUNT ELIGIBLE) */}
-                                    <div
-                                        onClick={toggleMaintenanceAndCare}
-                                        className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${hostingPlan === 'maintenance' ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900'} flex justify-between items-center flex-1`}
-                                    >
-                                        <div className="flex gap-3 items-center">
-                                            <Code className={hostingPlan === 'maintenance' ? 'text-blue-600' : 'text-gray-400'} size={24}/>
-                                            <div>
-                                                <h4 className="font-bold text-gray-900 dark:text-white">Hosting & Maintenance</h4>
-                                                <p className="text-gray-500 dark:text-gray-400 text-xs">Hosting + Monthly Code Updates</p>
-                                                {hostMaintenance.isDiscounted && (
-                                                    <p className="text-blue-600 dark:text-blue-400 text-xs font-bold mt-1">
-                                                        Save £{hostMaintenance.originalPrice - hostMaintenance.price}/mo
-                                                    </p>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <span className="font-bold text-gray-900 dark:text-white">+£{hostMaintenance.price}/mo</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
 
                     {/* --- 3. LIVE CHECKOUT ESTIMATOR --- */}
                     <div className="w-full bg-gray-900 text-white p-8 md:p-10 rounded-3xl border border-gray-800 shadow-2xl relative overflow-hidden">
-                        {/* Decorative Background Element */}
                         <div className="absolute top-0 right-0 -mt-16 -mr-16 text-gray-800 opacity-50">
                             <ShoppingCart size={150} />
                         </div>
@@ -218,64 +278,105 @@ export const Pricing = () => {
 
                             {selectedTierId ? (
                                 <div className="space-y-6">
-                                    {/* Breakdown List */}
-                                    <div className="space-y-4 border-b border-gray-700 pb-6">
 
-                                        {/* Core Build Fee */}
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-gray-400">Website Build ({selectedTier?.name})</span>
-                                            <span className="font-bold">
-                                                {isMonthly ? `£${getBuildMonthlyCost()}/mo` : `£${selectedTier?.upfrontPrice}`}
-                                            </span>
+                                    {/* --- Due Today Section --- */}
+                                    <div className="border-b border-gray-700 pb-6 space-y-4">
+                                        <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Due Today</h4>
+
+                                        {!isMonthly && (
+                                            <div className="flex justify-between items-center text-sm">
+                                                <span className="text-gray-300">Website Build ({selectedTier?.name})</span>
+                                                <span className="font-bold">£{selectedTier?.upfrontPrice}</span>
+                                            </div>
+                                        )}
+                                        <div className="flex justify-between items-center text-sm">
+                                            <span className="text-gray-300">Onboarding Fee (One-time)</span>
+                                            <span className="font-bold">£{selectedTier?.onboarding}</span>
                                         </div>
-
-                                        {/* Kavass Care Plan Discount Line */}
-                                        {includeCarePlan && (
-                                            <div className="flex justify-between items-center text-sm">
-                                                <span className="text-cyan-400 flex items-center gap-2">
-                                                    <Shield size={16}/> Kavass Care Plan
-                                                </span>
-                                                <span className="text-cyan-400">
-                                                    {isMonthly ? '-30% Build Fee Applied' : 'Selected'}
-                                                </span>
-                                            </div>
-                                        )}
-
-                                        {/* Hosting Line */}
-                                        {hostingPlan !== 'none' && (
-                                            <div className="flex justify-between items-center text-sm">
-                                                <span className="text-gray-400 flex items-center gap-2">
-                                                    <Server size={16}/>
-                                                    {hostingPlan === 'hosting' ? 'Managed Hosting' : 'Hosting & Maintenance'}
-                                                </span>
-                                                <span className="font-medium">+£{getAddonMonthlyCost()}/mo</span>
-                                            </div>
-                                        )}
-
-                                        {/* Display specific tier notes (like "Domain fees separate") only if paying upfront */}
-                                        {!isMonthly && selectedTier?.other && (
-                                            <div className="flex justify-between items-center text-sm mt-2 pt-2 border-t border-gray-800">
-                                                <span className="text-gray-500 flex items-center gap-2">
-                                                    <Info size={14}/> Important Note
-                                                </span>
-                                                <span className="text-gray-500 text-xs">{selectedTier.other}</span>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Final Totals */}
-                                    <div className="pt-2 space-y-3">
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-lg text-gray-300">Due Today</span>
+                                        <div className="flex justify-between items-center pt-2">
+                                            <span className="text-lg text-gray-300">Total Upfront</span>
                                             <span className="text-2xl font-black text-white">£{totalUpfront}</span>
                                         </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-lg text-gray-300">Monthly Recurring</span>
-                                            <span className="text-2xl font-black text-blue-400">£{totalMonthly}/mo</span>
+                                    </div>
+
+                                    {/* --- Monthly Recurring Section --- */}
+                                    <div className="pb-6 space-y-4">
+                                        <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Monthly Recurring</h4>
+
+                                        {/* Monthly Build Fee */}
+                                        {isMonthly && (
+                                            <div className="flex justify-between items-center text-sm">
+                                                <span className="text-gray-300 flex items-center gap-2">
+                                                    <Code size={16}/> Website Build (Monthly)
+                                                </span>
+                                                <div className="text-right">
+                                                    {hostingPlan === 'hm' && (
+                                                        <span className="line-through text-gray-600 text-xs mr-2">£{selectedTier?.monthlyPrice}</span>
+                                                    )}
+                                                    <span className="font-bold">£{rawMonthlyBuild}</span>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Infrastructure Fee & Phased Pricing Details */}
+                                        {hostingPlan !== 'none' && (
+                                            <>
+                                                <div className="flex justify-between items-center text-sm">
+                                                    <span className="text-gray-300 flex items-center gap-2">
+                                                        <Server size={16}/>
+                                                        {hostingPlan === 'hosting' ? 'Managed Hosting' : 'Hosting & Maintenance'}
+                                                    </span>
+                                                    <span className="font-medium">+£{currentAddonCost}</span>
+                                                </div>
+
+                                                {/* Details for Upfront + H&M Phased Discounts */}
+                                                {!isMonthly && hostingPlan === 'hm' && phasedPricing && (
+                                                    <div className="bg-gray-800/50 p-4 rounded-xl mt-2 space-y-2 border border-gray-700">
+                                                        <p className="text-xs text-cyan-400 font-bold mb-2">🎁 Upfront Maintenance Discount Schedule:</p>
+                                                        <div className="flex justify-between text-xs text-gray-400">
+                                                            <span>Months 1-3 (Hosting Only)</span>
+                                                            <span className="text-white">£{phasedPricing.months1to3}/mo</span>
+                                                        </div>
+                                                        <div className="flex justify-between text-xs text-gray-400">
+                                                            <span>Months 4-12 (30% Off)</span>
+                                                            <span className="text-white">£{phasedPricing.months4to12}/mo</span>
+                                                        </div>
+                                                        <div className="flex justify-between text-xs text-gray-400">
+                                                            <span>Year 2+ (Standard Rate)</span>
+                                                            <span className="text-white">£{phasedPricing.year2Plus}/mo</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+
+                                        {/* Contract Term Display & Breakout Notice */}
+                                        {isMonthly && (
+                                            <>
+                                                <div className="flex justify-between items-center text-sm border-t border-gray-800 pt-4">
+                                                    <span className="text-blue-400 flex items-center gap-2">
+                                                        <Calendar size={16}/> {contractTerm === 1 ? '1 Month' : contractTerm === 12 ? '1 Year' : '2 Year'} Contract
+                                                    </span>
+                                                    {contractTerm !== 1 && (
+                                                        <span className="text-blue-400 font-bold">-{contractTerm === 12 ? '10%' : '20%'} Bundle Applied</span>
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-gray-500 italic mt-1">
+                                                    *Breakout fees apply if cancelled before contract term ends (equal to the remaining fees for that month).
+                                                </p>
+                                            </>
+                                        )}
+
+                                        {/* Final Monthly Total Calculation */}
+                                        <div className="flex justify-between items-center pt-4 border-t border-gray-800">
+                                            <span className="text-lg text-gray-300">
+                                                {!isMonthly && hostingPlan === 'hm' ? 'Starting Monthly' : 'Total Monthly'}
+                                            </span>
+                                            <span className="text-2xl font-black text-blue-400">£{currentMonthlyTotal}/mo</span>
                                         </div>
                                     </div>
 
-                                    <button className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-full font-bold text-lg transition-colors">
+                                    <button className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-full font-bold text-lg transition-colors">
                                         Start Your Project
                                     </button>
                                 </div>
