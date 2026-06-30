@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { CheckCircle, Shield, Server, Code, ShoppingCart, Info, Calendar } from 'lucide-react';
-import { techStack } from "@/data/content.ts"; // Assuming this exists based on your previous code
-import {dynamicPricingData} from "@/data/content.ts";
-
-
+import React, { useState, useMemo } from 'react';
+import { CheckCircle, Shield, Server, Code, ShoppingCart, Info, Calendar, ArrowRight } from 'lucide-react';
+import { dynamicPricingData, addonData } from "@/data/content.ts";
 
 const dynamicPricingDataC = dynamicPricingData;
+const addonDataC = addonData;
 
 export const Pricing = () => {
     // ==========================================
@@ -18,118 +16,135 @@ export const Pricing = () => {
     // Contract Terms: 1 = 1 Month, 12 = 1 Year, 24 = 2 Years
     const [contractTerm, setContractTerm] = useState<1 | 12 | 24>(1);
 
-    // Define base addon prices
-    const baseHostingFee = 30; // Pure hosting
-    const baseMaintenanceFee = 120; // Pure maintenance (Total H&M = £150)
-    const baseHMFee = baseHostingFee + baseMaintenanceFee;
-
-    const selectedTier = dynamicPricingDataC.find(t => t.id === selectedTierId);
+    const selectedTier = dynamicPricingDataC.find(t => t.id === selectedTierId) || null;
 
     // ==========================================
-    // 2. PRICING LOGIC & CALCULATIONS
+    // 2. PRICING LOGIC & CALCULATIONS (Modularized via useMemo)
     // ==========================================
+    const pricing = useMemo(() => {
+        // Dynamically fetch prices from your addonData
+        const hostingData = addonDataC.find(a => a.id === "a1");
+        const hmData = addonDataC.find(a => a.id === "a2");
 
-    // Calculate Upfront Costs
-    const totalUpfront = selectedTier ? (
-        (isMonthly ? 0 : selectedTier.upfrontPrice) + selectedTier.onboarding
-    ) : 0;
+        const baseHostingFee = hostingData?.price || 25;
+        const baseHMFee = hmData?.price || 75;
 
-    // Calculate Base Monthly Costs
-    let rawMonthlyBuild = 0;
-    if (selectedTier && isMonthly) {
-        rawMonthlyBuild = selectedTier.monthlyPrice;
-        // Condition: Monthly cost is 20% less when selecting Hosting & Maintenance for life
-        if (hostingPlan === 'hm') {
-            rawMonthlyBuild = rawMonthlyBuild * 0.8;
-        }
-    }
+        // Upfront Costs
+        const totalUpfront = selectedTier ? (
+            (isMonthly ? 0 : selectedTier.upfrontPrice) + selectedTier.onboarding
+        ) : 0;
 
-    // Calculate Monthly Addon Costs & Total based on conditions
-    let currentMonthlyTotal = 0;
-    let currentAddonCost = 0;
-
-    // Phased Pricing for Upfront UI display
-    let phasedPricing = null;
-
-    if (!isMonthly) {
-        // UPFRONT LOGIC
-        if (hostingPlan === 'hosting') {
-            currentAddonCost = baseHostingFee;
-            currentMonthlyTotal = currentAddonCost;
-        } else if (hostingPlan === 'hm') {
-            // Condition: 30% off H&M up to 10hrs/mo.
-            // First 3 months: Maintenance free (Hosting only).
-            // Months 4-12: 30% off total H&M.
-            // Year 2+: Full price.
-            currentAddonCost = baseHostingFee; // Month 1-3 starts at just hosting cost
-            currentMonthlyTotal = currentAddonCost;
-
-            phasedPricing = {
-                months1to3: baseHostingFee,
-                months4to12: baseHMFee * 0.7,
-                year2Plus: baseHMFee
-            };
-        }
-    } else {
-        // MONTHLY LOGIC
-        if (hostingPlan === 'hosting') {
-            currentAddonCost = baseHostingFee;
-        } else if (hostingPlan === 'hm') {
-            currentAddonCost = baseHMFee;
+        // Base Monthly Build Costs
+        let rawMonthlyBuild = 0;
+        if (selectedTier && isMonthly) {
+            rawMonthlyBuild = selectedTier.monthlyPrice;
+            // Condition: Monthly cost is 20% less when selecting Hosting & Maintenance for life
+            if (hostingPlan === 'hm') {
+                rawMonthlyBuild = rawMonthlyBuild * 0.8;
+            }
         }
 
-        let subtotal = rawMonthlyBuild + currentAddonCost;
+        let currentMonthlyTotal = 0;
+        let currentAddonCost = 0;
+        let phasedPricing = null;
 
-        // Apply Contract Discounts (10% off altogether for 1yr, 20% off for 2yr)
-        if (contractTerm === 12) subtotal = subtotal * 0.9;
-        if (contractTerm === 24) subtotal = subtotal * 0.8;
+        if (!isMonthly) {
+            // UPFRONT LOGIC
+            if (hostingPlan === 'hosting') {
+                currentAddonCost = baseHostingFee;
+                currentMonthlyTotal = currentAddonCost;
+            } else if (hostingPlan === 'hm') {
+                currentAddonCost = baseHostingFee; // Month 1-3 starts at just hosting cost
+                currentMonthlyTotal = currentAddonCost;
+                phasedPricing = {
+                    months1to3: baseHostingFee,
+                    months4to12: baseHMFee * 0.7,
+                    year2Plus: baseHMFee
+                };
+            }
+        } else {
+            // MONTHLY LOGIC
+            if (hostingPlan === 'hosting') {
+                currentAddonCost = baseHostingFee;
+            } else if (hostingPlan === 'hm') {
+                currentAddonCost = baseHMFee;
+            }
 
-        currentMonthlyTotal = subtotal;
-    }
+            let subtotal = rawMonthlyBuild + currentAddonCost;
+
+            // Apply Contract Discounts
+            if (contractTerm === 12) subtotal = subtotal * 0.9;
+            if (contractTerm === 24) subtotal = subtotal * 0.8;
+
+            currentMonthlyTotal = subtotal;
+        }
+
+        return {
+            baseHostingFee,
+            baseHMFee,
+            totalUpfront,
+            rawMonthlyBuild,
+            currentMonthlyTotal,
+            currentAddonCost,
+            phasedPricing
+        };
+    }, [isMonthly, selectedTier, hostingPlan, contractTerm]);
 
     // ==========================================
     // 3. RENDER UI
     // ==========================================
     return (
-        <section className="py-20 px-6 w-full bg-gray-50 dark:bg-gray-900 transition-colors">
+        <section className="py-24 px-6 w-full bg-gray-50 dark:bg-gray-900 transition-colors font-sans">
             <div className="max-w-7xl mx-auto">
 
                 {/* --- Header & Billing Toggle --- */}
-                <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">Transparent Pricing</h2>
-                    <div className="flex justify-center items-center gap-4">
-                        <span className={`text-sm font-medium ${!isMonthly ? 'text-gray-900 dark:text-white' : 'text-gray-500'}`}>Pay Upfront</span>
-                        <button
-                            onClick={() => setIsMonthly(!isMonthly)}
-                            className="relative w-16 h-8 rounded-full bg-blue-600 transition-colors focus:outline-none"
-                        >
-                            <div className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform duration-300 ${isMonthly ? 'left-9' : 'left-1'}`}></div>
-                        </button>
-                        <span className={`text-sm font-medium ${isMonthly ? 'text-gray-900 dark:text-white' : 'text-gray-500'}`}>Pay Monthly</span>
-                    </div>
+                <div className="text-center mb-16 space-y-6">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                        Transparent, predictable pricing.
+                    </h2>
+                    <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+                        Choose how you want to pay for your build, then select the infrastructure that best supports your growth.
+                    </p>
 
-                    {/* Contract Term Selector (Only visible for Monthly) */}
-                    {isMonthly && (
-                        <div className="mt-8 inline-flex bg-gray-200 dark:bg-gray-800 p-1 rounded-xl">
-                            {[
-                                { val: 1, label: '1 Month' },
-                                { val: 12, label: '1 Year (10% Off)' },
-                                { val: 24, label: '2 Years (20% Off)' }
-                            ].map((term) => (
-                                <button
-                                    key={term.val}
-                                    onClick={() => setContractTerm(term.val as 1|12|24)}
-                                    className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${contractTerm === term.val ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
-                                >
-                                    {term.label}
-                                </button>
-                            ))}
+                    <div className="flex flex-col items-center gap-6 mt-8">
+                        <div className="flex justify-center items-center gap-4 bg-white dark:bg-gray-800 p-2 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
+                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${!isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => setIsMonthly(false)}>
+                                Pay Upfront
+                            </span>
+                            <button
+                                onClick={() => setIsMonthly(!isMonthly)}
+                                className="relative w-14 h-7 rounded-full bg-blue-600 transition-colors focus:outline-none"
+                            >
+                                <div className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform duration-300 shadow-sm ${isMonthly ? 'left-8' : 'left-1'}`}></div>
+                            </button>
+                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => setIsMonthly(true)}>
+                                Pay Monthly
+                            </span>
                         </div>
-                    )}
+
+                        {/* Contract Term Selector (Animated rendering) */}
+                        <div className={`overflow-hidden transition-all duration-300 ${isMonthly ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
+                            <div className="inline-flex bg-gray-200 dark:bg-gray-800 p-1 rounded-xl shadow-inner">
+                                {[
+                                    { val: 1, label: '1 Month' },
+                                    { val: 12, label: '1 Year (10% Off)' },
+                                    { val: 24, label: '2 Years (20% Off)' }
+                                ].map((term) => (
+                                    <button
+                                        key={term.val}
+                                        onClick={() => setContractTerm(term.val as 1|12|24)}
+                                        className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${contractTerm === term.val ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
+                                    >
+                                        {term.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* --- 1. PRICING CARDS GRID --- */}
-                <div className="grid md:grid-cols-3 gap-8 mb-16 text-left">
+                <div className="grid md:grid-cols-3 gap-8 mb-16 lg:mb-24">
                     {dynamicPricingDataC.map((tier) => {
                         const isSelected = selectedTierId === tier.id;
 
@@ -137,36 +152,48 @@ export const Pricing = () => {
                             <div
                                 key={tier.id}
                                 onClick={() => setSelectedTierId(tier.id)}
-                                className={`cursor-pointer p-8 rounded-3xl transition-all transform ${isSelected ? 'ring-4 ring-blue-500 scale-105 shadow-2xl' : 'hover:-translate-y-2 shadow-lg'} ${tier.isPopular && !isSelected ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700'}`}
+                                className={`group cursor-pointer p-8 rounded-3xl transition-all duration-300 transform flex flex-col h-full ${
+                                    isSelected
+                                        ? 'ring-4 ring-blue-500 scale-105 shadow-2xl bg-white dark:bg-gray-800'
+                                        : 'hover:-translate-y-2 shadow-lg hover:shadow-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
+                                }`}
                             >
-                                <div className="flex justify-between items-center">
-                                    <h3 className="text-2xl font-bold">{tier.name}</h3>
-                                    {isSelected && <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Selected</span>}
+                                <div className="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{tier.name}</h3>
+                                        <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">{tier.target}</p>
+                                    </div>
+                                    {isSelected && <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full shrink-0">Selected</span>}
+                                    {tier.isPopular && !isSelected && <span className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-xs font-bold px-3 py-1 rounded-full shrink-0 shadow-sm">Popular</span>}
                                 </div>
 
-                                <p className={`${tier.isPopular && !isSelected ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'} mt-2 text-sm`}>{tier.target}</p>
-
-                                <div className="mt-6 mb-4">
-                                    <div className="text-4xl font-black mb-1">
-                                        £{isMonthly ? tier.monthlyPrice : tier.upfrontPrice}
-                                        {isMonthly && <span className="text-lg font-medium text-gray-400">/mo</span>}
+                                <div className="my-6">
+                                    <div className="flex items-end gap-1">
+                                        <span className="text-4xl font-black text-gray-900 dark:text-white">
+                                            £{isMonthly ? tier.monthlyPrice : tier.upfrontPrice}
+                                        </span>
+                                        {isMonthly && <span className="text-lg font-medium text-gray-400 mb-1">/mo</span>}
                                     </div>
-                                    <div className={`text-sm font-medium ${tier.isPopular && !isSelected ? 'text-blue-200' : 'text-gray-500'}`}>
-                                        + £{tier.onboarding} Onboarding Fee (One-time)
+                                    <div className="text-sm font-medium text-gray-500 mt-2 flex items-center gap-1">
+                                        <Info size={14} /> + £{tier.onboarding} Onboarding (One-time)
                                     </div>
                                 </div>
 
-                                <ul className={`space-y-4 mb-8 ${tier.isPopular && !isSelected ? 'text-blue-50' : 'text-gray-600 dark:text-gray-300'}`}>
+                                <ul className="space-y-4 mb-8 flex-grow">
                                     {tier.features.map((feature, index) => (
-                                        <li key={index} className="flex gap-2">
-                                            <CheckCircle size={20} className={tier.isPopular && !isSelected ? 'text-white' : 'text-blue-500 flex-shrink-0'}/>
-                                            <span className="text-sm">{feature}</span>
+                                        <li key={index} className="flex gap-3 text-gray-600 dark:text-gray-300">
+                                            <CheckCircle size={20} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                                            <span className="text-sm leading-relaxed">{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
 
                                 <button
-                                    className={`w-full py-3 rounded-full font-bold transition-colors ${isSelected ? 'bg-blue-600 text-white' : tier.isPopular ? 'bg-white text-blue-600' : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+                                    className={`w-full py-3.5 rounded-full font-bold transition-all duration-300 ${
+                                        isSelected
+                                            ? 'bg-blue-600 text-white shadow-md hover:bg-blue-700'
+                                            : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white group-hover:bg-blue-50 dark:group-hover:bg-gray-600'
+                                    }`}
                                 >
                                     {isSelected ? 'Plan Selected' : `Select ${tier.name}`}
                                 </button>
@@ -175,78 +202,89 @@ export const Pricing = () => {
                     })}
                 </div>
 
-                {/* --- 2. LOWER SECTION: SETUP & CUSTOMIZATION --- */}
-                <div className="max-w-5xl mx-auto w-full space-y-8">
-                    <div className="w-full bg-white dark:bg-gray-800 p-8 md:p-12 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                {/* --- 2. SIDE-BY-SIDE: INFRASTRUCTURE & ESTIMATOR --- */}
+                <div className="grid lg:grid-cols-12 gap-8 items-start">
 
-                        <div className="w-full">
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Customize Your Infrastructure</h3>
-                            <div className="grid md:grid-cols-2 gap-6 text-left">
+                    {/* LEFT COLUMN: Customization */}
+                    <div className="lg:col-span-7 bg-white dark:bg-gray-800 p-8 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Step 2: Infrastructure & Support</h3>
+                        <p className="text-gray-500 dark:text-gray-400 mb-8 text-sm">Choose the environment to host your new build. You can upgrade or downgrade this at any time.</p>
 
-                                {/* Basic Hosting */}
-                                <div
-                                    onClick={() => setHostingPlan(hostingPlan === 'hosting' ? 'none' : 'hosting')}
-                                    className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hosting' ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900'} flex gap-4 h-full`}
-                                >
-                                    <Server className={hostingPlan === 'hosting' ? 'text-blue-600 flex-shrink-0' : 'text-gray-400 flex-shrink-0'} size={32}/>
-                                    <div>
+                        <div className="space-y-4">
+                            {/* Managed Hosting */}
+                            <div
+                                onClick={() => setHostingPlan(hostingPlan === 'hosting' ? 'none' : 'hosting')}
+                                className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hosting' ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-900/10 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-blue-300'} flex items-start gap-5`}
+                            >
+                                <div className={`p-3 rounded-xl transition-colors ${hostingPlan === 'hosting' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-blue-400'}`}>
+                                    <Server size={24}/>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex justify-between items-center mb-1">
                                         <h4 className="font-bold text-gray-900 dark:text-white text-lg">Managed Hosting Only</h4>
-                                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 mb-3">
-                                            Fast, secure UK servers. Technical management handled behind the scenes.
-                                        </p>
-                                        <span className="font-bold text-gray-900 dark:text-white">+£{baseHostingFee}/mo</span>
+                                        <span className="font-bold text-gray-900 dark:text-white bg-white dark:bg-gray-800 px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700">+£{pricing.baseHostingFee}/mo</span>
                                     </div>
+                                    <p className="text-gray-500 dark:text-gray-400 text-sm">
+                                        Fast, secure UK servers with SSL. Technical management handled behind the scenes.
+                                    </p>
                                 </div>
+                            </div>
 
-                                {/* Hosting & Maintenance */}
-                                <div
-                                    onClick={() => setHostingPlan(hostingPlan === 'hm' ? 'none' : 'hm')}
-                                    className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hm' ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900'} flex gap-4 h-full`}
-                                >
-                                    <Shield className={hostingPlan === 'hm' ? 'text-cyan-600 flex-shrink-0' : 'text-gray-400 flex-shrink-0'} size={32}/>
-                                    <div>
+                            {/* Hosting & Maintenance */}
+                            <div
+                                onClick={() => setHostingPlan(hostingPlan === 'hm' ? 'none' : 'hm')}
+                                className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hm' ? 'border-cyan-500 bg-cyan-50/50 dark:bg-cyan-900/10 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-cyan-300'} flex items-start gap-5`}
+                            >
+                                <div className={`p-3 rounded-xl transition-colors ${hostingPlan === 'hm' ? 'bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-cyan-400'}`}>
+                                    <Shield size={24}/>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex justify-between items-center mb-1">
                                         <h4 className="font-bold text-gray-900 dark:text-white text-lg">Hosting & Maintenance</h4>
-                                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 mb-3">
-                                            Hosting plus up to 10hrs/mo of edits, technical support, and updates.
-                                        </p>
-
-                                        {/* Dynamic Discount Badges based on Payment Mode */}
-                                        {!isMonthly ? (
-                                            <div className="inline-block bg-cyan-100 dark:bg-cyan-900/50 text-cyan-800 dark:text-cyan-300 text-xs font-bold px-3 py-2 rounded-lg mt-2">
-                                                🎁 1st 3 Months Maintenance FREE<br/>
-                                                ⚡ 30% OFF for the rest of Year 1
-                                            </div>
-                                        ) : (
-                                            <div className="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-2 rounded-lg mt-2">
-                                                📉 Unlocks 20% OFF your monthly build fee for life.
-                                            </div>
-                                        )}
+                                        <span className="font-bold text-gray-900 dark:text-white bg-white dark:bg-gray-800 px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700">+£{pricing.baseHMFee}/mo</span>
                                     </div>
-                                </div>
+                                    <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
+                                        Hosting plus up to 10hrs/mo of edits, technical support, and updates.
+                                    </p>
 
+                                    {/* Dynamic Discount Badges */}
+                                    {!isMonthly ? (
+                                        <div className="flex flex-col gap-2">
+                                            <div className="inline-flex items-center gap-2 bg-cyan-100 dark:bg-cyan-900/50 text-cyan-800 dark:text-cyan-300 text-xs font-bold px-3 py-2 rounded-lg">
+                                                <span>🎁</span> 1st 3 Months Maintenance FREE
+                                            </div>
+                                            <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-2 rounded-lg">
+                                                <span>⚡</span> 30% OFF for the rest of Year 1
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-2 rounded-lg">
+                                            <span>📉</span> Unlocks 20% OFF your monthly build fee for life
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* --- 3. LIVE CHECKOUT ESTIMATOR --- */}
-                    <div className="w-full bg-gray-900 text-white p-8 md:p-10 rounded-3xl border border-gray-800 shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 -mt-16 -mr-16 text-gray-800 opacity-50">
-                            <ShoppingCart size={150} />
+                    {/* RIGHT COLUMN: Live Checkout Estimator */}
+                    <div className="lg:col-span-5 w-full bg-gray-900 text-white p-8 rounded-3xl border border-gray-800 shadow-2xl relative overflow-hidden lg:sticky lg:top-8">
+                        {/* Decorative Background Icon */}
+                        <div className="absolute top-0 right-0 -mt-8 -mr-8 text-gray-800 opacity-30 pointer-events-none">
+                            <ShoppingCart size={180} strokeWidth={1} />
                         </div>
 
                         <div className="relative z-10">
                             <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-                                <ShoppingCart className="text-blue-500" />
+                                <ShoppingCart className="text-blue-400" />
                                 Your Estimate
                             </h3>
 
                             {selectedTierId ? (
                                 <div className="space-y-6">
-
                                     {/* --- Due Today Section --- */}
-                                    <div className="border-b border-gray-700 pb-6 space-y-4">
-                                        <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Due Today</h4>
-
+                                    <div className="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 space-y-3">
+                                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Due Today</h4>
                                         {!isMonthly && (
                                             <div className="flex justify-between items-center text-sm">
                                                 <span className="text-gray-300">Website Build ({selectedTier?.name})</span>
@@ -257,96 +295,95 @@ export const Pricing = () => {
                                             <span className="text-gray-300">Onboarding Fee (One-time)</span>
                                             <span className="font-bold">£{selectedTier?.onboarding}</span>
                                         </div>
-                                        <div className="flex justify-between items-center pt-2">
-                                            <span className="text-lg text-gray-300">Total Upfront</span>
-                                            <span className="text-2xl font-black text-white">£{totalUpfront}</span>
+                                        <div className="flex justify-between items-center pt-3 mt-3 border-t border-gray-700">
+                                            <span className="text-sm text-gray-300">Total Upfront</span>
+                                            <span className="text-xl font-black text-white">£{pricing.totalUpfront}</span>
                                         </div>
                                     </div>
 
                                     {/* --- Monthly Recurring Section --- */}
-                                    <div className="pb-6 space-y-4">
-                                        <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Monthly Recurring</h4>
+                                    <div className="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 space-y-3">
+                                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Monthly Recurring</h4>
 
-                                        {/* Monthly Build Fee */}
                                         {isMonthly && (
                                             <div className="flex justify-between items-center text-sm">
                                                 <span className="text-gray-300 flex items-center gap-2">
-                                                    <Code size={16}/> Website Build (Monthly)
+                                                    <Code size={14} className="text-blue-400"/> Website Build
                                                 </span>
                                                 <div className="text-right">
                                                     {hostingPlan === 'hm' && (
-                                                        <span className="line-through text-gray-600 text-xs mr-2">£{selectedTier?.monthlyPrice}</span>
+                                                        <span className="line-through text-gray-500 text-xs mr-2">£{selectedTier?.monthlyPrice}</span>
                                                     )}
-                                                    <span className="font-bold">£{rawMonthlyBuild}</span>
+                                                    <span className="font-bold">£{pricing.rawMonthlyBuild}</span>
                                                 </div>
                                             </div>
                                         )}
 
-                                        {/* Infrastructure Fee & Phased Pricing Details */}
                                         {hostingPlan !== 'none' && (
-                                            <>
-                                                <div className="flex justify-between items-center text-sm">
-                                                    <span className="text-gray-300 flex items-center gap-2">
-                                                        <Server size={16}/>
-                                                        {hostingPlan === 'hosting' ? 'Managed Hosting' : 'Hosting & Maintenance'}
-                                                    </span>
-                                                    <span className="font-medium">+£{currentAddonCost}</span>
-                                                </div>
-
-                                                {/* Details for Upfront + H&M Phased Discounts */}
-                                                {!isMonthly && hostingPlan === 'hm' && phasedPricing && (
-                                                    <div className="bg-gray-800/50 p-4 rounded-xl mt-2 space-y-2 border border-gray-700">
-                                                        <p className="text-xs text-cyan-400 font-bold mb-2">🎁 Upfront Maintenance Discount Schedule:</p>
-                                                        <div className="flex justify-between text-xs text-gray-400">
-                                                            <span>Months 1-3 (Hosting Only)</span>
-                                                            <span className="text-white">£{phasedPricing.months1to3}/mo</span>
-                                                        </div>
-                                                        <div className="flex justify-between text-xs text-gray-400">
-                                                            <span>Months 4-12 (30% Off)</span>
-                                                            <span className="text-white">£{phasedPricing.months4to12}/mo</span>
-                                                        </div>
-                                                        <div className="flex justify-between text-xs text-gray-400">
-                                                            <span>Year 2+ (Standard Rate)</span>
-                                                            <span className="text-white">£{phasedPricing.year2Plus}/mo</span>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </>
+                                            <div className="flex justify-between items-center text-sm">
+                                                <span className="text-gray-300 flex items-center gap-2">
+                                                    <Server size={14} className="text-blue-400"/>
+                                                    {hostingPlan === 'hosting' ? 'Managed Hosting' : 'Hosting & Maintenance'}
+                                                </span>
+                                                <span className="font-medium">+£{pricing.currentAddonCost}</span>
+                                            </div>
                                         )}
 
-                                        {/* Contract Term Display & Breakout Notice */}
+                                        {/* Upfront Phased HM Details */}
+                                        {!isMonthly && hostingPlan === 'hm' && pricing.phasedPricing && (
+                                            <div className="bg-gray-900 p-3 rounded-xl mt-3 border border-gray-700 space-y-1.5">
+                                                <p className="text-[11px] text-cyan-400 font-bold mb-1">🎁 Maintenance Discount Schedule:</p>
+                                                <div className="flex justify-between text-xs text-gray-400">
+                                                    <span>Months 1-3 <span className="italic">(Hosting Only)</span></span>
+                                                    <span className="text-white">£{pricing.phasedPricing.months1to3}/mo</span>
+                                                </div>
+                                                <div className="flex justify-between text-xs text-gray-400">
+                                                    <span>Months 4-12 <span className="italic">(30% Off)</span></span>
+                                                    <span className="text-white">£{pricing.phasedPricing.months4to12}/mo</span>
+                                                </div>
+                                                <div className="flex justify-between text-xs text-gray-400">
+                                                    <span>Year 2+ <span className="italic">(Standard)</span></span>
+                                                    <span className="text-white">£{pricing.phasedPricing.year2Plus}/mo</span>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Contract Note */}
                                         {isMonthly && (
-                                            <>
-                                                <div className="flex justify-between items-center text-sm border-t border-gray-800 pt-4">
-                                                    <span className="text-blue-400 flex items-center gap-2">
-                                                        <Calendar size={16}/> {contractTerm === 1 ? '1 Month' : contractTerm === 12 ? '1 Year' : '2 Year'} Contract
-                                                    </span>
-                                                    {contractTerm !== 1 && (
-                                                        <span className="text-blue-400 font-bold">-{contractTerm === 12 ? '10%' : '20%'} Bundle Applied</span>
-                                                    )}
-                                                </div>
-                                                <p className="text-xs text-gray-500 italic mt-1">
-                                                    *Breakout fees apply if cancelled before contract term ends (equal to the remaining fees for that month).
-                                                </p>
-                                            </>
+                                            <div className="flex justify-between items-center text-xs pt-3 border-t border-gray-700 mt-3">
+                                                <span className="text-blue-400 flex items-center gap-1.5">
+                                                    <Calendar size={14}/> {contractTerm === 1 ? '1 Mo.' : contractTerm === 12 ? '1 Yr.' : '2 Yr.'} Contract
+                                                </span>
+                                                {contractTerm !== 1 && (
+                                                    <span className="text-blue-400 font-bold">-{contractTerm === 12 ? '10%' : '20%'} Bundle Savings</span>
+                                                )}
+                                            </div>
                                         )}
 
-                                        {/* Final Monthly Total Calculation */}
-                                        <div className="flex justify-between items-center pt-4 border-t border-gray-800">
-                                            <span className="text-lg text-gray-300">
+                                        {/* Final Monthly Calculation */}
+                                        <div className="flex justify-between items-center pt-3 mt-3 border-t border-gray-700">
+                                            <span className="text-sm text-gray-300">
                                                 {!isMonthly && hostingPlan === 'hm' ? 'Starting Monthly' : 'Total Monthly'}
                                             </span>
-                                            <span className="text-2xl font-black text-blue-400">£{currentMonthlyTotal}/mo</span>
+                                            <span className="text-2xl font-black text-blue-400">£{pricing.currentMonthlyTotal}<span className="text-sm font-medium text-gray-400">/mo</span></span>
                                         </div>
                                     </div>
 
-                                    <button className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-full font-bold text-lg transition-colors">
+                                    {isMonthly && (
+                                        <p className="text-[11px] text-gray-500 italic text-center px-4">
+                                            *Breakout fees apply if cancelled before contract term ends.
+                                        </p>
+                                    )}
+
+                                    <button className="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-blue-600/25 flex justify-center items-center gap-2 group">
                                         Start Your Project
+                                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                     </button>
                                 </div>
                             ) : (
-                                <div className="text-center py-8">
-                                    <p className="text-gray-400 text-lg">Please select a build plan above to see your estimate.</p>
+                                <div className="text-center py-12 px-6 bg-gray-800/50 rounded-2xl border border-gray-700 border-dashed">
+                                    <ShoppingCart size={48} className="mx-auto text-gray-600 mb-4" />
+                                    <p className="text-gray-400 font-medium">Select a build plan above to generate your live estimate.</p>
                                 </div>
                             )}
                         </div>
