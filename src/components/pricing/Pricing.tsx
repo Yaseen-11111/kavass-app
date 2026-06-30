@@ -1,7 +1,7 @@
 import React from 'react';
 import { dynamicPricingData } from "@/data/content.ts";
 import { usePricingController } from "@/hooks/usePricingController";
-import { PricingTier } from "@/types/pricing";
+import { PricingTier } from "@/data/content.ts";
 
 import { PricingHeader } from "./PricingHeader";
 import { PricingCard } from "./PricingCard";
