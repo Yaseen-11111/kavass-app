@@ -12,13 +12,21 @@ export interface PricingTier {
     id: string;
     name: string;
     target: string;
+    isPopular?: boolean;
+    monthlyPrice: number;
+    upfrontPrice: number;
     onboarding: number;
-    upfrontPrice: number;    // Updated to match your data
-    monthlyPrice: number;    // Updated to match your data
     features: string[];
-    isPopular?: boolean;     // Made optional (?) to handle tiers without this key
-    other?: string;          // Made optional (?) to handle tiers without this key
 }
+
+export interface PhasedPricing {
+    months1to3: number;
+    months4to12: number;
+    year2Plus: number;
+}
+
+export type HostingPlanType = 'none' | 'hosting' | 'hm';
+export type ContractTermType = 1 | 12 | 24;
 
 export interface AddonData { // Renamed to match your usage
     id: string;

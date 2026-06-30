@@ -1,17 +1,18 @@
 import { useState, useMemo } from "react";
 import { addonData, dynamicPricingData } from "@/data/content.ts";
+import { HostingPlanType, ContractTermType, PhasedPricing, PricingTier } from "@/types/pricing";
 
 export const usePricingController = () => {
     // 1. State
     const [isMonthly, setIsMonthly] = useState<boolean>(false);
     const [selectedTierId, setSelectedTierId] = useState<string | null>(null);
-    const [hostingPlan, setHostingPlan] = useState<'none' | 'hosting' | 'hm'>('none');
-    const [contractTerm, setContractTerm] = useState<1 | 12 | 24>(1);
+    const [hostingPlan, setHostingPlan] = useState<HostingPlanType>('none');
+    const [contractTerm, setContractTerm] = useState<ContractTermType>(1);
     const [includeCarePlan, setIncludeCarePlan] = useState<boolean>(false);
 
     // 2. Data Retrieval
-    const selectedTier = useMemo(() =>
-            dynamicPricingData.find(t => t.id === selectedTierId) || null,
+    const selectedTier = useMemo<PricingTier | null>(() =>
+            (dynamicPricingData as PricingTier[]).find(t => t.id === selectedTierId) || null,
         [selectedTierId]);
 
     const hostingBase = Math.round(addonData.find(t => t.id === 'hosting')?.price || 25);
@@ -48,7 +49,7 @@ export const usePricingController = () => {
             : 0;
     }, [isMonthly, selectedTier]);
 
-    const phasedPricing = useMemo(() => {
+    const phasedPricing = useMemo<PhasedPricing | null>(() => {
         if (isMonthly || hostingPlan !== 'hm') return null;
         return {
             months1to3: hostingBase,
