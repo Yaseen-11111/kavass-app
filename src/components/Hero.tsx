@@ -11,7 +11,7 @@ export const Hero = () => (
 
             {/* Use text-text instead of text-gray-900 */}
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-text">
-                Bespoke web design.<br/>Without the BS.
+                Bespoke web design and SaaS<br/>Without the BS.
             </h1>
             {/* Using opacity (text-text/70) effectively replaces the gray-600 look */}
             <p className="text-xl text-text/70 max-w-2xl mx-auto mb-10">
