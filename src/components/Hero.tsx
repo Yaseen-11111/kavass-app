@@ -29,10 +29,10 @@ export const Hero = () => (
                   className="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-300 dark:hover:bg-gray-700 transition-transform hover:-translate-y-1">
                 View Our Work
             </Link>
-            <a href="#how-it-works"
+            <Link to="how-it-works"
                className="text-text font-medium hover:text-primary transition-colors flex items-center gap-2">
                 See how it works<span>↓</span>
-            </a>
+            </Link>
             </div>
         </div>
 
