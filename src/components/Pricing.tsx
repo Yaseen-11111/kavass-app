@@ -37,22 +37,22 @@ export const Pricing = () => {
 
                     <div className="flex flex-col items-center gap-6 mt-8">
                         <div className="flex justify-center items-center gap-4 bg-white dark:bg-gray-800 p-2 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
-                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${!isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => pricing.setIsMonthly(false)}>
+                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${!pricing.isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => pricing.setIsMonthly(false)}>
                                 Pay Upfront
                             </span>
                             <button
-                                onClick={() => pricing.setIsMonthly(!isMonthly)}
+                                onClick={() => pricing.setIsMonthly(!pricing.isMonthly)}
                                 className="relative w-14 h-7 rounded-full bg-blue-600 transition-colors focus:outline-none"
                             >
-                                <div className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform duration-300 shadow-sm ${isMonthly ? 'left-8' : 'left-1'}`}></div>
+                                <div className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform duration-300 shadow-sm ${pricing.isMonthly ? 'left-8' : 'left-1'}`}></div>
                             </button>
-                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => pricing.setIsMonthly(true)}>
+                            <span className={`text-sm font-semibold px-4 py-2 rounded-full cursor-pointer transition-colors ${pricing.isMonthly ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => pricing.setIsMonthly(true)}>
                                 Pay Monthly
                             </span>
                         </div>
 
                         {/* Contract Term Selector (Animated rendering) */}
-                        <div className={`overflow-hidden transition-all duration-300 ${isMonthly ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className={`overflow-hidden transition-all duration-300 ${pricing.isMonthly ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
                             <div className="inline-flex bg-gray-200 dark:bg-gray-800 p-1 rounded-xl shadow-inner">
                                 {[
                                     { val: 1, label: '1 Month' },
@@ -62,7 +62,7 @@ export const Pricing = () => {
                                     <button
                                         key={term.val}
                                         onClick={() => pricing.setContractTerm(term.val as 1|12|24)}
-                                        className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${contractTerm === term.val ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
+                                        className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${pricing.contractTerm === term.val ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
                                     >
                                         {term.label}
                                     </button>
@@ -75,7 +75,7 @@ export const Pricing = () => {
                 {/* --- 1. PRICING CARDS GRID --- */}
                 <div className="grid md:grid-cols-3 gap-8 mb-16 lg:mb-24">
                     {dynamicPricingDataC.map((tier) => {
-                        const isSelected = selectedTierId === tier.id;
+                        const isSelected = pricing.selectedTierId === tier.id;
 
                         return (
                             <div
@@ -142,10 +142,10 @@ export const Pricing = () => {
                         <div className="space-y-4">
                             {/* Managed Hosting */}
                             <div
-                                onClick={() => pricing.setHostingPlan(hostingPlan === 'hosting' ? 'none' : 'hosting')}
-                                className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hosting' ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-900/10 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-blue-300'} flex items-start gap-5`}
+                                onClick={() => pricing.setHostingPlan(pricing.hostingPlan === 'hosting' ? 'none' : 'hosting')}
+                                className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all ${pricing.hostingPlan === 'hosting' ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-900/10 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-blue-300'} flex items-start gap-5`}
                             >
-                                <div className={`p-3 rounded-xl transition-colors ${hostingPlan === 'hosting' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-blue-400'}`}>
+                                <div className={`p-3 rounded-xl transition-colors ${pricing.hostingPlan === 'hosting' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-blue-400'}`}>
                                     <Server size={24}/>
                                 </div>
                                 <div className="flex-1">
@@ -161,10 +161,10 @@ export const Pricing = () => {
 
                             {/* Hosting & Maintenance */}
                             <div
-                                onClick={() => pricing.setHostingPlan(hostingPlan === 'hm' ? 'none' : 'hm')}
+                                onClick={() => pricing.setHostingPlan(pricing.hostingPlan === 'hm' ? 'none' : 'hm')}
                                 className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hm' ? 'border-cyan-500 bg-cyan-50/50 dark:bg-cyan-900/10 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-cyan-300'} flex items-start gap-5`}
                             >
-                                <div className={`p-3 rounded-xl transition-colors ${hostingPlan === 'hm' ? 'bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-cyan-400'}`}>
+                                <div className={`p-3 rounded-xl transition-colors ${pricing.hostingPlan === 'hm' ? 'bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-cyan-400'}`}>
                                     <Shield size={24}/>
                                 </div>
                                 <div className="flex-1">
@@ -177,7 +177,7 @@ export const Pricing = () => {
                                     </p>
 
                                     {/* Dynamic Discount Badges */}
-                                    {!isMonthly ? (
+                                    {!pricing.isMonthly ? (
                                         <div className="flex flex-col gap-2">
                                             <div className="inline-flex items-center gap-2 bg-cyan-100 dark:bg-cyan-900/50 text-cyan-800 dark:text-cyan-300 text-xs font-bold px-3 py-2 rounded-lg">
                                                 <span>🎁</span> 1st 3 Months Maintenance FREE
@@ -209,20 +209,20 @@ export const Pricing = () => {
                                 Your Estimate
                             </h3>
 
-                            {selectedTierId ? (
+                            {pricing.selectedTierId ? (
                                 <div className="space-y-6">
                                     {/* --- Due Today Section --- */}
                                     <div className="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 space-y-3">
                                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Due Today</h4>
-                                        {!isMonthly && (
+                                        {!pricing.isMonthly && (
                                             <div className="flex justify-between items-center text-sm">
-                                                <span className="text-gray-300">Website Build ({selectedTier?.name})</span>
-                                                <span className="font-bold">£{selectedTier?.upfrontPrice}</span>
+                                                <span className="text-gray-300">Website Build ({pricing.selectedTier?.name})</span>
+                                                <span className="font-bold">£{pricing.selectedTier?.upfrontPrice}</span>
                                             </div>
                                         )}
                                         <div className="flex justify-between items-center text-sm">
                                             <span className="text-gray-300">Onboarding Fee (One-time)</span>
-                                            <span className="font-bold">£{selectedTier?.onboarding}</span>
+                                            <span className="font-bold">£{pricing.selectedTier?.onboarding}</span>
                                         </div>
                                         <div className="flex justify-between items-center pt-3 mt-3 border-t border-gray-700">
                                             <span className="text-sm text-gray-300">Total Upfront</span>
@@ -234,7 +234,7 @@ export const Pricing = () => {
                                     <div className="bg-gray-800/50 p-5 rounded-2xl border border-gray-700/50 space-y-3">
                                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Monthly Recurring</h4>
 
-                                        {isMonthly && (
+                                        {pricing.isMonthly && (
                                             <div className="flex justify-between items-center text-sm">
                                                 <span className="text-gray-300 flex items-center gap-2">
                                                     <Code size={14} className="text-blue-400"/> Website Build
@@ -248,7 +248,7 @@ export const Pricing = () => {
                                             </div>
                                         )}
 
-                                        {hostingPlan !== 'none' && (
+                                        {pricing.hostingPlan !== 'none' && (
                                             <div className="flex justify-between items-center text-sm">
                                                 <span className="text-gray-300 flex items-center gap-2">
                                                     <Server size={14} className="text-blue-400"/>
@@ -259,7 +259,7 @@ export const Pricing = () => {
                                         )}
 
                                         {/* Upfront Phased HM Details */}
-                                        {!isMonthly && hostingPlan === 'hm' && pricing.phasedPricing && (
+                                        {!pricing.isMonthly && pricing.hostingPlan === 'hm' && pricing.phasedPricing && (
                                             <div className="bg-gray-900 p-3 rounded-xl mt-3 border border-gray-700 space-y-1.5">
                                                 <p className="text-[11px] text-cyan-400 font-bold mb-1">🎁 Maintenance Discount Schedule:</p>
                                                 <div className="flex justify-between text-xs text-gray-400">
@@ -278,13 +278,13 @@ export const Pricing = () => {
                                         )}
 
                                         {/* Contract Note */}
-                                        {isMonthly && (
+                                        {pricing.isMonthly && (
                                             <div className="flex justify-between items-center text-xs pt-3 border-t border-gray-700 mt-3">
                                                 <span className="text-blue-400 flex items-center gap-1.5">
-                                                    <Calendar size={14}/> {contractTerm === 1 ? '1 Mo.' : contractTerm === 12 ? '1 Yr.' : '2 Yr.'} Contract
+                                                    <Calendar size={14}/> {pricing.contractTerm === 1 ? '1 Mo.' : pricing.contractTerm === 12 ? '1 Yr.' : '2 Yr.'} Contract
                                                 </span>
-                                                {contractTerm !== 1 && (
-                                                    <span className="text-blue-400 font-bold">-{contractTerm === 12 ? '10%' : '20%'} Bundle Savings</span>
+                                                {pricing.contractTerm !== 1 && (
+                                                    <span className="text-blue-400 font-bold">-{pricing.contractTerm === 12 ? '10%' : '20%'} Bundle Savings</span>
                                                 )}
                                             </div>
                                         )}
@@ -292,13 +292,13 @@ export const Pricing = () => {
                                         {/* Final Monthly Calculation */}
                                         <div className="flex justify-between items-center pt-3 mt-3 border-t border-gray-700">
                                             <span className="text-sm text-gray-300">
-                                                {!isMonthly && hostingPlan === 'hm' ? 'Starting Monthly' : 'Total Monthly'}
+                                                {!pricing.isMonthly && pricing.hostingPlan === 'hm' ? 'Starting Monthly' : 'Total Monthly'}
                                             </span>
                                             <span className="text-2xl font-black text-blue-400">£{pricing.currentMonthlyTotal}<span className="text-sm font-medium text-gray-400">/mo</span></span>
                                         </div>
                                     </div>
 
-                                    {isMonthly && (
+                                    {pricing.isMonthly && (
                                         <p className="text-[11px] text-gray-500 italic text-center px-4">
                                             *Breakout fees apply if cancelled before contract term ends.
                                         </p>
