@@ -210,6 +210,6 @@ export const addonData: AddonData[] = [
         id: "a2",
         name: "Hosting & Maintenance",
         description: "Everything in hosting, plus monthly code updates and plugin management.",
-        price: 75,
+        price: 115,
     }
 ];
