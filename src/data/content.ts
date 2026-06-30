@@ -17,6 +17,7 @@ export interface PricingTier {
     upfrontPrice: number;
     onboarding: number;
     features: string[];
+    other: string;
 }
 
 export interface PhasedPricing {
