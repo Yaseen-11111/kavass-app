@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { portfolioData } from '../data/content';
 import { PortfolioItem } from '../data/content';
 
 export const Portfolio = () => {
     const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
+    const previewRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (selectedProject && previewRef.current) {
+            previewRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [selectedProject]);
+
+    const handleSelectProject = (item: PortfolioItem) => {
+        setSelectedProject(item);
+    };
 
     return (
         <section className="py-20 px-6 text-center text-gray-900 dark:text-white transition-colors">
@@ -14,7 +25,7 @@ export const Portfolio = () => {
                 {portfolioData.map((item) => (
                     <button
                         key={item.id}
-                        onClick={() => setSelectedProject(item)}
+                        onClick={() => handleSelectProject(item)}
                         className="text-left block group"
                     >
                         <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden aspect-video relative border border-gray-200 dark:border-gray-700">
@@ -35,7 +46,7 @@ export const Portfolio = () => {
 
             {/* Preview Section */}
             {selectedProject && (
-                <div className="max-w-7xl mx-auto mt-12 border-t border-gray-200 dark:border-gray-700 pt-10">
+                <div ref={previewRef} className="max-w-7xl mx-auto mt-12 border-t border-gray-200 dark:border-gray-700 pt-10">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-2xl font-bold">{selectedProject.title} (Web Preview)</h3>
                         <button
@@ -61,7 +72,7 @@ export const Portfolio = () => {
                         </div>
 
                         {/* Iframe */}
-                        <iframe
+                        <iframe id="iframe"
                             src={selectedProject.previewUrl}
                             title={selectedProject.title}
                             className="w-full h-full flex-1"
