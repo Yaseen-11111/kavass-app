@@ -173,6 +173,7 @@ export const dynamicPricingData: PricingTier[] = [
         monthlyPrice: 100,
         features: ['5 Custom Pages', 'Mobile Responsive', 'SEO Optimization', 'Contact Form Integration', 'Upto 1 week'],
         other: 'First month Maintenance included',
+        isPopular: false,
     },
     {
         id: 'growth',
@@ -184,6 +185,7 @@ export const dynamicPricingData: PricingTier[] = [
         isPopular: true,
         features: ['10 Custom Pages', 'Advanced Animations', 'CMS Integration', 'Analytics Dashboard', 'Priority Support', 'Upto 1-3weeks'],
         other: 'First 3 months of Maintenance included',
+        isPopular: true,
     },
     {
         id: 'premium',
@@ -194,6 +196,7 @@ export const dynamicPricingData: PricingTier[] = [
         monthlyPrice: 350,
         features: ['Unlimited Pages', 'Full E-commerce setup', 'Custom Web App Logic', 'Dedicated Developer', '24/7 Support*when I am awake', 'Upto 2-4 weeks'],
         other: 'First 6 months of Maintenance included',
+        isPopular: false,
     }
 ];
 

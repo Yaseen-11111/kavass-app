@@ -1,47 +1,11 @@
 import React, { useState } from 'react';
 import { CheckCircle, Shield, Server, Code, ShoppingCart, Info, Calendar } from 'lucide-react';
 import { techStack } from "@/data/content.ts"; // Assuming this exists based on your previous code
+import {dynamicPricingData} from "@/data/content.ts";
 
-// NOTE: Since the requested logic changes how prices are calculated entirely,
-// the logic has been integrated here so it works immediately. You can refactor
-// this back into usePricingController if preferred.
 
-// Mock data structure based on your request (Replace with your actual import from data.ts)
-const dynamicPricingData = [
-    {
-        id: 'tier-1',
-        name: 'Starter',
-        target: 'For early-stage startups.',
-        upfrontPrice: 2500,
-        monthlyPrice: 250,
-        onboarding: 500,
-        features: ['Custom Design', '5 Pages', 'Basic SEO', 'Contact Form'],
-        isPopular: false,
-        other: 'Domain fees separate.'
-    },
-    {
-        id: 'tier-2',
-        name: 'Growth',
-        target: 'For scaling businesses.',
-        upfrontPrice: 5000,
-        monthlyPrice: 450,
-        onboarding: 800,
-        features: ['Advanced Animations', '10 Pages', 'CMS Integration', 'Analytics Setup'],
-        isPopular: true,
-        other: 'Domain fees separate.'
-    },
-    {
-        id: 'tier-3',
-        name: 'Enterprise',
-        target: 'For complex applications.',
-        upfrontPrice: 10000,
-        monthlyPrice: 850,
-        onboarding: 1500,
-        features: ['Custom Web App', 'Unlimited Pages', 'API Integrations', 'Priority Support'],
-        isPopular: false,
-        other: 'Domain fees separate.'
-    }
-];
+
+const dynamicPricingDataC = dynamicPricingData;
 
 export const Pricing = () => {
     // ==========================================
@@ -59,7 +23,7 @@ export const Pricing = () => {
     const baseMaintenanceFee = 120; // Pure maintenance (Total H&M = £150)
     const baseHMFee = baseHostingFee + baseMaintenanceFee;
 
-    const selectedTier = dynamicPricingData.find(t => t.id === selectedTierId);
+    const selectedTier = dynamicPricingDataC.find(t => t.id === selectedTierId);
 
     // ==========================================
     // 2. PRICING LOGIC & CALCULATIONS
@@ -166,7 +130,7 @@ export const Pricing = () => {
 
                 {/* --- 1. PRICING CARDS GRID --- */}
                 <div className="grid md:grid-cols-3 gap-8 mb-16 text-left">
-                    {dynamicPricingData.map((tier) => {
+                    {dynamicPricingDataC.map((tier) => {
                         const isSelected = selectedTierId === tier.id;
 
                         return (
