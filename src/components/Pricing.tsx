@@ -12,6 +12,8 @@ export const Pricing = () => {
     // 2. PRICING LOGIC & CALCULATIONS (Modularized via useMemo)
     // ==========================================
     const pricing = usePricingController();
+    // Update this line:
+    const selectedTier = pricing.selectedTier;
     const {
         isMonthly,
         totalMonthly,
