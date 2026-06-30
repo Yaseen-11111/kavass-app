@@ -60,7 +60,9 @@ export const Hero = () => (
                         <div key={index}
 
                              className="bg-gray-800 p-6 rounded-xl shadow-sm flex items-center gap-4 hover:scale-105 transition-transform">
-                            <CheckCircle className="text-blue-500" size={24}/>
+                            <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
+                                <CheckCircle className="text-blue-500" size={24}/>
+                            </div>
                             <span className="font-semibold text-lg text-white">{tech}</span>
                         </div>
                     ))}
