@@ -26,8 +26,8 @@ export const Pricing = () => {
         const hostingData = addonDataC.find(a => a.id === "a1");
         const hmData = addonDataC.find(a => a.id === "a2");
 
-        const baseHostingFee = hostingData?.price || 25;
-        const baseHMFee = hmData?.price || 75;
+        const baseHostingFee = Math.round(hostingData?.price || 25);
+        const baseHMFee = Math.round(hmData?.price || 75);
 
         // Upfront Costs
         const totalUpfront = selectedTier ? (
@@ -37,10 +37,10 @@ export const Pricing = () => {
         // Base Monthly Build Costs
         let rawMonthlyBuild = 0;
         if (selectedTier && isMonthly) {
-            rawMonthlyBuild = selectedTier.monthlyPrice;
+            rawMonthlyBuild = Math.round(selectedTier.monthlyPrice);
             // Condition: Monthly cost is 20% less when selecting Hosting & Maintenance for life
             if (hostingPlan === 'hm') {
-                rawMonthlyBuild = rawMonthlyBuild * 0.8;
+                rawMonthlyBuild = Math.round(rawMonthlyBuild * 0.8);
             }
         }
 
