@@ -7,17 +7,6 @@ const dynamicPricingDataC = dynamicPricingData;
 const addonDataC = addonData;
 
 export const Pricing = () => {
-    // ==========================================
-    // 1. STATE MANAGEMENT
-    // ==========================================
-    const [isMonthly, setIsMonthly] = useState(false);
-    const [selectedTierId, setSelectedTierId] = useState<string | null>(null);
-    const [hostingPlan, setHostingPlan] = useState<'none' | 'hosting' | 'hm'>('none');
-
-    // Contract Terms: 1 = 1 Month, 12 = 1 Year, 24 = 2 Years
-    const [contractTerm, setContractTerm] = useState<1 | 12 | 24>(1);
-
-    const selectedTier = dynamicPricingDataC.find(t => t.id === selectedTierId) || null;
 
     // ==========================================
     // 2. PRICING LOGIC & CALCULATIONS (Modularized via useMemo)
