@@ -3,7 +3,7 @@ import { SiInstagram, SiWhatsapp } from 'react-icons/si';
 import * as Icons from 'lucide-react';
 
 // Use it as a standard component
-import { contactInfo } from '../data/content';
+import { contactInfo } from '@/data/content.ts';
 
 
 export const Contact = () => (

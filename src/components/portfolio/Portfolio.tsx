@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { portfolioData } from '../data/content';
-import { PortfolioItem } from '../data/content';
+import { portfolioData, PortfolioItem } from '@/data/content.ts';
 
 export const Portfolio = () => {
     const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);

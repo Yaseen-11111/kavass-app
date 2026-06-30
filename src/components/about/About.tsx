@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {ArrowRight, Layers, Minus, Plus, Star, Target, Zap} from 'lucide-react';
-import {FaqsData} from '../data/content.ts';
+import {FaqsData} from '@/data/content.ts';
 
 export const About = () => {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
