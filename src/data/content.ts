@@ -182,7 +182,6 @@ export const dynamicPricingData: PricingTier[] = [
         onboarding: 129,
         upfrontPrice: 1500,
         monthlyPrice: 180,
-        isPopular: true,
         features: ['10 Custom Pages', 'Advanced Animations', 'CMS Integration', 'Analytics Dashboard', 'Priority Support', 'Upto 1-3weeks'],
         other: 'First 3 months of Maintenance included',
         isPopular: true,
