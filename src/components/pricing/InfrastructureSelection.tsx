@@ -1,6 +1,6 @@
 import React from 'react';
 import { Server, Shield } from 'lucide-react';
-import { HostingPlanType } from "@/types/pricing";
+import { HostingPlanType } from "@/data/content.ts";
 
 interface InfrastructureSelectionProps {
     hostingPlan: HostingPlanType;

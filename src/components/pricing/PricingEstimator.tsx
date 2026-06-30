@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShoppingCart, Code, Server, Calendar, ArrowRight } from 'lucide-react';
-import { PricingTier, HostingPlanType, ContractTermType, PhasedPricing } from "@/types/pricing";
+import { PricingTier, HostingPlanType, ContractTermType, PhasedPricing } from "@/data/content.ts";
 
 interface PricingEstimatorProps {
     selectedTierId: string | null;

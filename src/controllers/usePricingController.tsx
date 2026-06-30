@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { addonData, dynamicPricingData } from "@/data/content.ts";
-import { HostingPlanType, ContractTermType, PhasedPricing, PricingTier } from "@/types/pricing";
+import { HostingPlanType, ContractTermType, PhasedPricing, PricingTier } from "@/data/content.ts";
 
 export const usePricingController = () => {
     // 1. State

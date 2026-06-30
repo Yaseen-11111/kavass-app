@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCircle, Info } from 'lucide-react';
-import { PricingTier } from "@/types/pricing";
+import { PricingTier } from "@/data/content.ts";
 
 interface PricingCardProps {
     tier: PricingTier;

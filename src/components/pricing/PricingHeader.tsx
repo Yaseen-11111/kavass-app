@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContractTermType } from "@/types/pricing";
+import { ContractTermType } from "@/data/content.ts";
 
 interface PricingHeaderProps {
     isMonthly: boolean;
