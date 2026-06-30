@@ -41,7 +41,7 @@ export const Pricing = () => {
                                 Pay Upfront
                             </span>
                             <button
-                                onClick={() => setIsMonthly(!isMonthly)}
+                                onClick={() => pricing.setIsMonthly(!isMonthly)}
                                 className="relative w-14 h-7 rounded-full bg-blue-600 transition-colors focus:outline-none"
                             >
                                 <div className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform duration-300 shadow-sm ${isMonthly ? 'left-8' : 'left-1'}`}></div>
@@ -61,7 +61,7 @@ export const Pricing = () => {
                                 ].map((term) => (
                                     <button
                                         key={term.val}
-                                        onClick={() => setContractTerm(term.val as 1|12|24)}
+                                        onClick={() => pricing.setContractTerm(term.val as 1|12|24)}
                                         className={`px-5 py-2.5 rounded-lg text-sm font-bold transition-all ${contractTerm === term.val ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
                                     >
                                         {term.label}
@@ -80,7 +80,7 @@ export const Pricing = () => {
                         return (
                             <div
                                 key={tier.id}
-                                onClick={() => setSelectedTierId(tier.id)}
+                                onClick={() => pricing.setSelectedTierId(tier.id)}
                                 className={`group cursor-pointer p-8 rounded-3xl transition-all duration-300 transform flex flex-col h-full ${
                                     isSelected
                                         ? 'ring-4 ring-blue-500 scale-105 shadow-2xl bg-white dark:bg-gray-800'
@@ -142,7 +142,7 @@ export const Pricing = () => {
                         <div className="space-y-4">
                             {/* Managed Hosting */}
                             <div
-                                onClick={() => setHostingPlan(hostingPlan === 'hosting' ? 'none' : 'hosting')}
+                                onClick={() => pricing.setHostingPlan(hostingPlan === 'hosting' ? 'none' : 'hosting')}
                                 className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hosting' ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-900/10 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-blue-300'} flex items-start gap-5`}
                             >
                                 <div className={`p-3 rounded-xl transition-colors ${hostingPlan === 'hosting' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-blue-400'}`}>
@@ -161,7 +161,7 @@ export const Pricing = () => {
 
                             {/* Hosting & Maintenance */}
                             <div
-                                onClick={() => setHostingPlan(hostingPlan === 'hm' ? 'none' : 'hm')}
+                                onClick={() => pricing.setHostingPlan(hostingPlan === 'hm' ? 'none' : 'hm')}
                                 className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all ${hostingPlan === 'hm' ? 'border-cyan-500 bg-cyan-50/50 dark:bg-cyan-900/10 shadow-sm' : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 hover:border-cyan-300'} flex items-start gap-5`}
                             >
                                 <div className={`p-3 rounded-xl transition-colors ${hostingPlan === 'hm' ? 'bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600' : 'bg-gray-200 dark:bg-gray-800 text-gray-400 group-hover:text-cyan-400'}`}>
