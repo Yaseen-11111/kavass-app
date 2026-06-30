@@ -1,12 +1,12 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDarkMode } from './hooks/useDarkMode';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Portfolio } from './components/Portfolio';
+import { Navbar } from './components/navbar/Navbar';
+import { Hero } from './components/hero/Hero';
+import { About } from './components/about/About';
+import { Portfolio } from './components/portfolio/Portfolio';
 import { Pricing } from './components/pricing/Pricing';
-import { Contact } from './components/Contact';
+import { Contact } from './components/contact/Contact';
 
 
 export default function App() {
