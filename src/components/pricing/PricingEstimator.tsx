@@ -102,7 +102,7 @@ export const PricingEstimator: React.FC<PricingEstimatorProps> = ({
                                         <span className="text-white">£{phasedPricing.months4to12}/mo</span>
                                     </div>
                                     <div className="flex justify-between text-xs text-gray-400">
-                                        <span>Year 2+ <span className="italic">(Standard)</span></span>
+                                        <span>Year 1+ <span className="italic">(Standard)</span></span>
                                         <span className="text-white">£{phasedPricing.year2Plus}/mo</span>
                                     </div>
                                 </div>
