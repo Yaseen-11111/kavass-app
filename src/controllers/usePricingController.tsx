@@ -40,7 +40,10 @@ export const usePricingController = () => {
     const totalMonthly = useMemo(() => {
         const subtotal = rawMonthlyBuild + currentAddonCost;
         const contractMultiplier = contractTerm === 12 ? 0.9 : contractTerm === 24 ? 0.8 : 1;
-        return (!isMonthly = hostingBase || Math.round(subtotal*contractMultiplier));
+        if (!isMonthly) return (
+            hostingBase
+        )
+        return Math.round(subtotal*contractMultiplier);
     }, [rawMonthlyBuild, currentAddonCost, contractTerm]);
 
     const totalUpfront = useMemo(() => {
