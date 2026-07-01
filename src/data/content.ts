@@ -127,8 +127,8 @@ export const portfolioData: PortfolioItem[] = [
         title: "Luxe Polished Nails",
         client: "Luxe Polished Nails, Fleet",
         category: "Independent Nail Bar",
-        imageUrl: "/kavass-app/projects/NailBar.png", // Ensure you add this image to your public folder [cite: 459]
-        previewUrl: "/kavass-app/previews/NailBar.html"
+        imageUrl: "/projects/NailBar.png", // Ensure you add this image to your public folder [cite: 459]
+        previewUrl: "/previews/NailBar.html"
     },
     {
         id: "p2",
