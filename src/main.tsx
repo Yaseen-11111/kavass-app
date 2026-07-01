@@ -1,14 +1,18 @@
+// main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
 
+// Logic: If we are in production, use the repo name. Otherwise, use root.
+const isProd = import.meta.env.PROD;
+const basename = isProd ? '/kavass-app/' : '/';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        {/* import.meta.env.BASE_URL will equal '/' locally and '/kavass-app/' in build */}
-        <Router basename={import.meta.env.BASE_URL}>
+        <BrowserRouter basename={basename}>
             <App />
-        </Router>
+        </BrowserRouter>
     </React.StrictMode>,
 );
