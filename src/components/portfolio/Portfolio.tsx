@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { portfolioData, PortfolioItem } from '@/data/content';
+import { getPath } from '@/utils/paths';
 
 export const Portfolio = () => {
     const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
@@ -72,8 +73,8 @@ export const Portfolio = () => {
 
                         {/* Iframe */}
                         <iframe id="iframe"
-                            src={selectedProject.previewUrl}
-                            title={selectedProject.title}
+                                src={getPath(selectedProject.previewUrl)}
+                                title={selectedProject.title}
                             className="w-full h-full flex-1"
                         />
                     </div>
