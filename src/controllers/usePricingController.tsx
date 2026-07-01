@@ -41,7 +41,7 @@ export const usePricingController = () => {
         const subtotal = rawMonthlyBuild + currentAddonCost;
         const contractMultiplier = contractTerm === 12 ? 0.9 : contractTerm === 24 ? 0.8 : 1;
         if (!isMonthly) return (
-            hostingBase
+            Math.round(hostingBase)
         )
         return Math.round(subtotal*contractMultiplier);
     }, [rawMonthlyBuild, currentAddonCost, contractTerm]);

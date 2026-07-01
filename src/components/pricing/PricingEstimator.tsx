@@ -126,7 +126,6 @@ export const PricingEstimator: React.FC<PricingEstimatorProps> = ({
                                     {!isMonthly && hostingPlan === 'hm' ? 'Starting Monthly' : 'Total Monthly'}
                                 </span>
                                 <span className="text-2xl font-black text-blue-400">
-                                    {!isMonthly && hostingPlan === 'hm' ? 'Starting Monthly' : 'Total Monthly'}
                                     £{currentMonthlyTotal}<span className="text-sm font-medium text-gray-400">/mo</span>
                                 </span>
                             </div>
