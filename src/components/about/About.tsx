@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {ArrowRight, Layers, Minus, Plus, Star, Target, Zap} from 'lucide-react';
-import {FaqsData} from '@/data/content.ts';
+// FIX: Removed the .ts extension from the import
+import {FaqsData} from '@/data/content';
 
 export const About = () => {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -173,7 +174,8 @@ export const About = () => {
                 </div>
 
                 <div className="space-y-4">
-                    {FaqsData.map((faq, index: number) => (
+                    {/* FIX: Explicitly typed 'faq' so TypeScript doesn't throw the TS7006 error */}
+                    {FaqsData.map((faq: { question: string; answer: string }, index: number) => (
                         <div
                             key={index}
                             className="bg-white dark:bg-gray-800/50 rounded-2xl transition-all duration-200"
@@ -193,12 +195,6 @@ export const About = () => {
                             </button>
 
                             <div
-                                /*
-                                  Added specific classes to hide the scrollbar across all browsers:
-                                  [&::-webkit-scrollbar]:hidden (Chrome/Safari)
-                                  [-ms-overflow-style:none] (IE/Edge)
-                                  [scrollbar-width:none] (Firefox)
-                                */
                                 className={`px-6 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out ${
                                     openFaq === index ? "max-h-96 pb-6 opacity-100" : "max-h-0 opacity-0"
                                 }`}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { techStack } from "@/data/content.ts";
+import { techStack } from "@/data/content";
 import { CheckCircle } from "lucide-react";
 
 export const Hero = () => {
