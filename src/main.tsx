@@ -1,7 +1,7 @@
 // main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
 
@@ -11,8 +11,8 @@ const basename = isProd ? '/kavass-app/' : '/';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <BrowserRouter basename={basename}>
+        <Router basename={basename}>
             <App />
-        </BrowserRouter>
+        </Router>
     </React.StrictMode>,
 );
