@@ -3,19 +3,24 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
-export default defineConfig({
-    base: '/kavass-app',
-    plugins: [
-        react(),
-        tailwindcss(), // This handles everything, including autoprefixer
-    ],
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './src'),
+
+export default defineConfig(({ command }) => {
+    return {
+        // Only use the base path when running 'build', use '/' during 'dev'
+        base: command === 'build' ? '/kavass-app/' : '/',
+
+        plugins: [
+            react(),
+            tailwindcss(),
+        ],
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, './src'),
+            },
         },
-    },
-    server: {
-        port: 8080,
-        host: true
-    }
+        server: {
+            port: 8080,
+            host: true,
+        }
+    };
 });
