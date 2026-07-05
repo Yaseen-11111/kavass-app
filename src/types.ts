@@ -20,20 +20,45 @@ export interface Client {
     files: ProjectFile[];
 }
 
+// --- TYPES & INTERFACES ---
+export interface PortfolioItem {
+    id: string;
+    title: string;
+    client: string;
+    category: string;
+    imageUrl: string;
+    previewUrl: string; // Added to match your data
+}
+
 export interface PricingTier {
     id: string;
     name: string;
     target: string;
-    upfrontPrice: number;    // Updated to match your data
-    monthlyPrice: number;    // Updated to match your data
+    isPopular?: boolean;
+    monthlyPrice: number;
+    upfrontPrice: number;
+    onboarding: number;
     features: string[];
-    isPopular?: boolean;     // Made optional (?) to handle tiers without this key
-    other?: string;          // Made optional (?) to handle tiers without this key
+    other: string;
 }
+
+export interface PhasedPricing {
+    months1to3: number;
+    months4to12: number;
+    year2Plus: number;
+}
+
+export type HostingPlanType = 'none' | 'hosting' | 'hm';
+export type ContractTermType = 1 | 12 | 24;
 
 export interface AddonData { // Renamed to match your usage
     id: string;
     name: string;
     description: string;
-    price: string;
+    price: number;
+}
+
+export interface FaqsData {
+    question: string;
+    answer: string;
 }
