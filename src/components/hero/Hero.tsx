@@ -15,21 +15,23 @@ export const Hero = () => {
 
     return (
         <>
-            {/* Floating Promotional Banner */}
-            <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[100] w-max max-w-[90vw]">
-                <Link
-                    to="/contact"
-                    className="group flex items-center gap-3 bg-red-600/95 backdrop-blur-md text-white px-6 py-2.5 rounded-full shadow-lg shadow-red-600/20 border border-red-500 hover:bg-red-500 hover:-translate-y-0.5 transition-all duration-300"
-                >
-                    <span className="flex h-2.5 w-2.5 relative">
+            {/* Sticky Top Promotional Banner */}
+            <div className="sticky top-0 z-[100] w-full bg-red-600 text-white px-4 py-2.5 shadow-md transition-colors">
+                <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 text-center">
+                    <span className="flex h-2 w-2 relative">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-200 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                     </span>
-                    <span className="font-semibold text-sm tracking-wide">
-                        Start Your 30-Day Free Trial
-                    </span>
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
+                    <p className="text-xs sm:text-sm font-medium tracking-wide">
+                        Special Launch Offer: <strong className="font-bold underline">Start Your 30-Day Free Trial Today</strong>
+                    </p>
+                    <Link
+                        to="/contact"
+                        className="hidden sm:inline-flex items-center gap-1 bg-white text-red-600 hover:bg-red-50 px-3 py-1 rounded-full text-xs font-bold transition-all shadow-sm"
+                    >
+                        Claim Offer <ArrowRight size={12} />
+                    </Link>
+                </div>
             </div>
 
             <section className="pt-5 pb-20 px-6 text-center transition-colors">
