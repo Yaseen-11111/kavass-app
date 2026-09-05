@@ -1,14 +1,30 @@
 // --- TYPES & INTERFACES ---
+// We use 'import type' to fix isolatedModules errors, and alias FaqsData to avoid clashing with your constant below.
+import type { 
+    PortfolioItem, 
+    PricingTier, 
+    FaqsData as FaqsDataType, 
+    PhasedPricing, 
+    HostingPlanType, 
+    ContractTermType, 
+    AddonData 
+} from '../types';
 
-import { PortfolioItem, PricingTier, FaqsData, PhasedPricing, HostingPlanType, ContractTermType, AddonData } from '../types';
-
-
+// Re-export the types so your components can successfully import them from "@/data/content"
+export type { 
+    PortfolioItem, 
+    PricingTier, 
+    PhasedPricing, 
+    HostingPlanType, 
+    ContractTermType, 
+    AddonData 
+};
 
 // --- SITE CONTENT ---
 
 export const contactInfo = {
-    whatsapp: "https://wa.me/447393547563", // Replace with your actual WhatsApp link [cite: 455]
-    instagram: "https://instagram.com/kavass.io", // Replace with your actual handle [cite: 455]
+    whatsapp: "https://wa.me/447393547563", 
+    instagram: "https://instagram.com/kavass.io", 
     email: "hello@kavass.co.uk"
 };
 
@@ -71,8 +87,6 @@ export const FaqsData = [
     }
 ];
 
-
-
 export const techStack = [
     "Bespoke Modular Professional Website Application",
     "Latest technology and security",
@@ -80,7 +94,7 @@ export const techStack = [
     "SSL Certificates for Security and peace of mide",
     "Artistic with a unique approach",
     "No long processes or hidden fee"
-]; // [cite: 458]
+]; 
 
 export const portfolioData: PortfolioItem[] = [
     {
@@ -88,7 +102,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Luxe Polished Nails",
         client: "Luxe Polished Nails, Fleet",
         category: "Independent Nail Bar",
-        imageUrl: "projects/NailBar.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "projects/NailBar.png", 
         previewUrl: "/previews/NailBar.html"
     },
     {
@@ -96,7 +110,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Razor & Blade",
         client: "Razor & Blade, Aldershot",
         category: "Independent Barber Shop",
-        imageUrl: "projects/Barber.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "projects/Barber.png", 
         previewUrl: "previews/BarberSite.html"
     },
     {
@@ -104,7 +118,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Apex Builders",
         client: "Apex Builders, Camberley",
         category: "Construction Company",
-        imageUrl: "projects/Builder.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "projects/Builder.png", 
         previewUrl: "previews/BuilderSite.html"
     },
     {
@@ -112,7 +126,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Saffron Indian",
         client: "Saffron Indian, Farnborough",
         category: "Restaurant",
-        imageUrl: "projects/Indian.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "projects/Indian.png", 
         previewUrl: "previews/SaffronKitchen.html"
     },
     {
@@ -120,7 +134,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Vanguard Legal",
         client: "Vanguard Legal, Guildford",
         category: "Legal Firm",
-        imageUrl: "projects/Legal.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "projects/Legal.png", 
         previewUrl: "previews/LawFirm.html"
     },
     {
@@ -128,7 +142,7 @@ export const portfolioData: PortfolioItem[] = [
         title: "Velocity Media",
         client: "Velocity Media, Aldershot",
         category: "Retail",
-        imageUrl: "projects/Social.png", // Ensure you add this image to your public folder [cite: 459]
+        imageUrl: "projects/Social.png", 
         previewUrl: "previews/SocialAgency.html"
     }
 ];
