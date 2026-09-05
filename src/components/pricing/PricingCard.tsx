@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCircle, Info } from 'lucide-react';
-import { PricingTier } from "@/data/content.ts";
+import { PricingTier } from "@/data/content";
 
 interface PricingCardProps {
     tier: PricingTier;
@@ -41,7 +41,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ tier, isSelected, isMo
             </div>
 
             <ul className="space-y-4 mb-8 flex-grow">
-                {tier.features.map((feature, index) => (
+                {tier.features.map((feature: string, index: number) => (
                     <li key={index} className="flex gap-3 text-gray-600 dark:text-gray-300">
                         <CheckCircle size={20} className="text-blue-500 flex-shrink-0 mt-0.5" />
                         <span className="text-sm leading-relaxed">{feature}</span>
