@@ -14,9 +14,9 @@ export const Hero = () => {
     };
 
     return (
-        <>
-            {/* Sticky Top Promotional Banner */}
-            <div className="sticky top-0 z-[100] w-full bg-red-600 text-white px-4 py-2.5 shadow-md transition-colors">
+        <div className="w-full">
+            {/* Red Discount Banner Stuck Immediately Underneath the Navbar */}
+            <div className="w-full bg-red-600 text-white px-4 py-2.5 shadow-md transition-colors relative z-40">
                 <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 text-center">
                     <span className="flex h-2 w-2 relative">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-200 opacity-75"></span>
@@ -155,6 +155,6 @@ export const Hero = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 };
